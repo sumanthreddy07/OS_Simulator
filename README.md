@@ -34,7 +34,7 @@ A Basic User Interface to the important concepts of Operating System
 - J Sudarsanan ([@sudarshan-sj](https://github.com/sudarshan-sj))
 - Jayakrishna Sukumaran ([@jayakrishnaus](https://github.com/jayakrishnaus))
 - Jyotirmay ([@jyotirmay02](https://github.com/jyotirmay02))
-- K V Sumanth Reddy ([@sumanthreddy07]((https://github.com/sumanthreddy07))
+- K V Sumanth Reddy ([@sumanthreddy07](https://github.com/sumanthreddy07))
 - Keerti Chaudhary ([@keerti2001](https://github.com/keerti2001))
 - Ketan Bhujange ([@ketanbhujange](https://github.com/ketanbhujange))
 - Korra Jagan Babu ([@korrajaganbabu](https://github.com/korrajaganbabu))
