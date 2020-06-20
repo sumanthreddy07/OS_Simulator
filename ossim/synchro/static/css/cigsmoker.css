@@ -1,0 +1,262 @@
+body{
+  background-image: url('images.jpeg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+h1{
+  font-family: 'Tangerine', serif;
+  font-size: 40px;
+  font-weight: 600;
+  background-color: white;
+  width:70%;
+  color:red;
+  margin-bottom: 100px;
+}
+
+h2{
+  position: absolute;
+  bottom:10px;
+  text-align: center;
+  margin-left: 37%;
+}
+
+
+
+#agent{
+  width:200px;
+  height:200px;
+}
+
+#one ,  #three , #five{
+
+  position:absolute;
+  top:12%;left:50%;
+  height:125px;
+  width:125px;
+  border-radius:80px;
+  border:1px solid #000;
+}
+
+
+
+#three{
+  position: absolute;
+top:55%;
+left:67%;
+}
+
+
+#five{
+  top:55%;left:37%;
+}
+
+#next{
+  height:75px;
+  width:260px;
+  position:absolute;
+  top:20%;
+  left:5%;
+  font-size:20px;
+  border-radius: 3px;
+}
+
+#table{
+   height:435px;
+   width:435px;
+   position:absolute;
+   top:23%;
+   left:40%;
+   border-radius:435px;
+   border:1px solid #000;
+   background-color:#00b894;
+}
+
+
+
+#tob,.tob{
+  background-color: brown;
+  height:50px;
+  width:60px;
+  position: absolute;
+  top:40%;
+  left:50%;
+}
+
+#ocb,.ocb{
+  background-color: white;
+  height:50px;
+  width:60px;
+  position: absolute;
+  top:40%;
+  left:60%;
+}
+
+#match,.match{
+  background-color: orange;
+  height:50px;
+  width:60px;
+  position: absolute;
+  top:50%;
+  left:55%;
+}
+
+.s1{
+  position: absolute;
+  top:27%;left:55%;
+}
+
+.s2{
+  position: absolute;
+top:55%;left:65%;
+}
+
+.s3{
+  top:55%;
+  left:46%;
+
+}
+
+#ocb,#match,#tob{
+  display: none;
+}
+
+#cig1 , #cig2 , #cig3{
+  background-color: black;
+  height:10px;
+  width: 70px;
+  display: none;
+}
+
+#cig1{
+  position: absolute;
+  top:17%;
+  left:55%;
+}
+
+#cig3{
+  position: absolute;
+  top:60%;
+  left:42%;
+}
+
+#cig2{
+  position: absolute;
+  top:62%;
+  left:72%;
+}
+#num{
+  height:70px;
+  width:300px;
+  position:absolute;
+  top:45%;
+  left:5%;
+  font-size:20px;
+  border-radius: 3px;
+}
+
+#phil{
+  position:absolute;
+  top:15%;
+  left:82%;
+  font-size:20px;
+  color: red;
+}
+
+#btn1{
+  height:25px;
+  width:25px;
+  position:absolute;
+  top:20%;
+  left:82%;
+  background-color:#DCDCDC;
+}
+
+span{
+  font-size: 30px;
+  font-weight: bold;
+}
+#btn1txt{
+  position:absolute;
+  top:20%;
+  left:85%;
+  font-size:20px;
+  color: white;
+}
+
+#btn2{
+  height:25px;
+  width:25px;
+  position:absolute;
+  top:25%;
+  left:82%;
+  background-color: yellow;
+}
+
+#btn2txt{
+  position:absolute;
+  top:25%;
+  left:85%;
+  font-size:20px;
+  color:white;
+}
+
+#btn3{
+  height:25px;
+  width:25px;
+  position:absolute;
+  top:30%;
+  left:82%;
+  background-color: red;
+}
+
+#btn3txt{
+  position:absolute;
+  top:30%;
+  left:85%;
+  font-size:20px;
+  color:white;
+}
+
+#btn4{
+  height:25px;
+  width:25px;
+  position:absolute;
+  top:55%;
+  left:82%;
+  background-color: #DCDCDC;
+}
+
+#btn4txt{
+  position:absolute;
+  top:55%;
+  left:85%;
+  font-size:20px;
+  color:white;
+}
+
+
+#btn5{
+  height:25px;
+  width:25px;
+  position:absolute;
+  top:60%;
+  left:82%;
+  background-color: red;
+}
+
+#btn5txt{
+  position:absolute;
+  top:60%;
+  left:85%;
+  font-size:20px;
+  color:white;
+}
+
+#chopsticks{
+  color:green;
+  position: absolute;
+  top:45%;
+  left:82%;
+  font-size: 22px;
+}

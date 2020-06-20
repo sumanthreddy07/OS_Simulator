@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+
+{% load static %}
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="{% static 'css/readerwriter.css' %}" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <div class="container-fluid">
+    <center><h1 style='font-weight:bold;'>Reader-Writer Problem (Writer Preference)</u> </h1></center>
+    <form onsubmit="return false">
+      <p><br /><br><br></p>
+      <span> User 1:  </span>
+    <k style="color:white;">  Read:</k> <button name="firstR" onClick="update(this)"> Click </button>
+    <k style="color:white;">  Write:</k> <button type = "button" name = "firstW" onClick="update(this)">Click </button><br><br><br>
+
+      <span>User 2: </span>
+    <k style="color:white;">  Read:</k> <button type = "button", name = "secondR", onClick="update(this)">Click </button>
+    <k style="color:white;">  Write:</k> <button type = "button" name = "secondW" onClick="update(this)"> Click </button><br><br><br>
+
+      <span>User 3: </span>
+    <k style="color:white;">  Read:</k> <button type = "button", name = "thirdR" onClick="update(this)"> Click</button>
+    <k style="color:white;">  Write:</k> <button type = "button" name = "thirdW" onClick="update(this)"> Click</button><br><br><br>
+
+
+    <button type="button" name="stop()" onClick = "stop()" id="st">Stop Writer</button>
+      <br /><br />
+    </form>
+
+    <button type = "button", id ="one", name = "one"> </button>
+    <button type = "button", id ="two", name = "two"> </button>
+    <button type = "button", id ="three", name = "three"> </button>
+
+
+    <button type = "button", id ="lock", class ="btn btn-primary", name = "lock">Writer - : </button>
+
+    <div>
+      <form>
+        <textarea id="doc"   disabled="" >Write Text Here.. </textarea>
+      </form>
+    </div>
+    <script type = "text/javascript">
+      var mutex =-1;
+      function update(obj)
+      {
+        text = (obj.getAttribute('name').toString())
+        var checkW =0;
+        for(var i=0;i<7;i++)
+        {
+
+            if(text=='firstW' || text=='secondW' || text=='thirdW'){
+            checkW=1;
+          }
+
+        }
+        if(checkW==0)
+        {
+          if(mutex==-1){
+            mutex = -1;
+          }
+          var change = document.getElementById("lock");
+          change.innerHTML ="Writing Lock:"
+        }
+
+
+
+            if(text==='firstR' && mutex==-1)
+            {
+              document.getElementById("one").style.backgroundColor = '#8e44ad';
+              mutex =-1;
+            }
+            if(text==='secondR' && mutex==-1)
+            {
+              document.getElementById("two").style.backgroundColor = '#8e44ad';
+              mutex =-1;
+            }
+            if(text==='thirdR' && mutex==-1)
+            {
+              document.getElementById("three").style.backgroundColor = '#8e44ad';
+              mutex =-1;
+            }
+
+
+            if(text === 'firstW')
+            {
+
+
+                if(mutex==0 || mutex==-1){
+                mutex =0;
+                document.getElementById("one").style.backgroundColor = '#FC140F';
+
+                document.getElementById("two").style.backgroundColor = '#FFFFFF';
+
+                document.getElementById("three").style.backgroundColor = '#FFFFFF';
+
+              }
+
+            }
+            if(text === 'secondW')
+            {
+
+              if(mutex==1 || mutex==-1){
+
+              mutex =1;
+              document.getElementById("one").style.backgroundColor = '#FFFFFF';
+              document.getElementById("two").style.backgroundColor = '#fc140f';
+              document.getElementById("three").style.backgroundColor = '#FFFFFF';
+
+
+;
+
+            }
+            }
+            if(text==='thirdW')
+            {
+
+
+              if(mutex==2 || mutex==-1){
+              mutex =2;
+              document.getElementById("one").style.backgroundColor = '#FFFFFF';
+              document.getElementById("two").style.backgroundColor = '#FFFFFF';
+              document.getElementById("three").style.backgroundColor = '#fc140f';
+
+            }
+            }
+
+            console.log(mutex);
+            if(mutex==-1)
+            {
+               document.getElementById("doc").style.display = 'none'
+
+            }
+            else
+            {
+                document.getElementById("doc").style.display = 'block'
+
+                document.getElementById("doc").disabled= false
+            }
+
+            var k = mutex+1;
+
+            if(mutex!=-1){
+            var change = document.getElementById("lock");
+            change.innerHTML ="Writer - : " + k;
+          }
+      }
+
+      function stop(){
+
+        if(mutex==0 || mutex==1 || mutex==2){
+        document.getElementById("one").style.backgroundColor = '#FFFFFF';
+
+        document.getElementById("two").style.backgroundColor = '#FFFFFF';
+
+        document.getElementById("three").style.backgroundColor = '#FFFFFF';
+
+           document.getElementById("doc").style.display = 'none'
+
+        mutex = -1;
+        var change = document.getElementById("lock");
+        change.innerHTML ="Writing Lock:"
+      }
+      }
+    </script>
+
+    <button type = "button" id="legend1"> </button>
+    <p id="legendText1"> Not accessing -   </p>
+    <button id="legend2" type = "button"> </button>
+    <p id="legendText2"> Reading -  </p>
+    <button  id="legend3" type = "button"> </button>
+    <p id="legendText3" > Writing  - </p>
+  </div>
+</body>

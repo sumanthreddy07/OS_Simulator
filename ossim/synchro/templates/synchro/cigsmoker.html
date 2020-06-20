@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+{% load static %}
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="{% static 'css/cigsmoker.css' %}" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <div class="container-fluid">
+    <center><h1>Ciggerate smoker Problem</h1></center>
+
+  <center><h2> Click on smoker to change state </h2></center>
+    <img src="/static/images/images.gif" id="agent"> <span> AGENT </span>
+
+
+
+     <img src="/static/images/abc.png"<button type = "button", id ="one", name = "one" onclick="initiate('0')">  </button>>
+      <img src="/static/images/abc.png"<button type = "button", id ="five", name = "one" onclick="initiate('1')">  </button>>
+      <img src="/static/images/abc.png"<button type = "button", id ="three", name = "one" onclick="initiate('2')"> </button>>
+
+    <div  class="tob s1"  name = "one"> Tobacco </div>
+
+    <div   class ="ocb s2"  name = "one"> Paper </div>
+    <div  class ="match s3"  name = "one"> Match </div>
+
+    <div  id="cig1"> </div>
+    <div  id="cig2"> </div>
+    <div id="cig3"> </div>
+
+
+    <div  id="tob"> Tobbaco</div>
+    <div  id="match">Match </div>
+    <div id="ocb">Paper </div>
+    <script type = "text/javascript">
+
+
+    function getRandomArbitrary(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+
+      var smokers= [0,0,0];
+      var ocb=0;
+      var tob=0;
+      var match=0;
+
+      function moveAnimate(element, newParent){
+    //Allow passing in either a jQuery object or selector
+    element = $(element);
+    newParent= $(newParent);
+
+    var oldOffset = element.offset();
+
+    var newOffset = newParent.offset();
+
+    var temp = element.clone().appendTo('body');
+    temp.css({
+        'position': 'absolute',
+        'left': oldOffset.left,
+        'top': oldOffset.top,
+        'z-index': 1000
+    });
+    element.hide();
+    temp.animate({'top': newOffset.top, 'left': newOffset.left}, '2000', function(){
+       element.show();
+       temp.remove();
+    });
+}
+
+
+      function initiate(x)
+      {
+          var num = Math.random();
+          var n = x;
+
+
+
+
+
+          if(n==0){
+            if(smokers[n]===0)
+            {
+
+              if(match===0 && ocb===0){
+                smokers[n]=1;
+                  alert('Smoker 1 is smoking');
+              document.getElementById('match').style.display='block';
+              document.getElementById('ocb').style.display='block';
+              moveAnimate('#match' , '#one');
+              moveAnimate('#ocb' , '#one');
+              match=1;
+              ocb=1;
+              document.getElementById('cig1').style.display='block';
+
+              }
+
+              else{
+                alert('Smoker 1 cannot smoke now');
+              }
+            }
+
+            else if(smokers[n]==1){
+                alert('Smoker 1 has finished smoking');
+                match=0;
+                ocb=0;
+
+                smokers[n]=0;
+                document.getElementById('tob').style.display='none';
+                document.getElementById('ocb').style.display='none';
+                document.getElementById('match').style.display='none';
+                document.getElementById('cig1').style.display='none';
+              }
+
+
+            }
+
+
+
+
+
+            if(n==1){
+              if(smokers[n]==0)
+              {
+
+                if (tob==0 && ocb==0){
+                  smokers[n]=1
+                    alert('Smoker 2 is smoking');
+                document.getElementById('tob').style.display='block';
+                document.getElementById('ocb').style.display='block';
+                moveAnimate('#tob' , '#five');
+                moveAnimate('#ocb' , '#five');
+                tob=1;
+                ocb=1;
+                document.getElementById('cig3').style.display='block';
+                }
+
+                else{
+                  alert('Smoker 2 cannot smoke now');
+                }
+              }
+
+              else if(smokers[n]==1){
+                  alert('Smoker 2 has finished smoking');
+                  tob=0;
+                  ocb=0;
+                  smokers[n]=0;
+                  document.getElementById('tob').style.display='none';
+                  document.getElementById('ocb').style.display='none';
+                  document.getElementById('match').style.display='none';
+                  document.getElementById('cig3').style.display='none';
+
+                }
+
+
+              }
+
+              if(n==2){
+                if(smokers[n]==0)
+                {
+
+
+                  if (match==0 && tob==0){
+                    smokers[n]=1;
+                    alert('Smoker 3 is smoking');
+                  document.getElementById('match').style.display='block';
+                  document.getElementById('tob').style.display='block';
+                  moveAnimate('#match' , '#three');
+                  moveAnimate('#tob' , '#three');
+                  match=1;
+                  tob=1;
+                  document.getElementById('cig2').style.display='block';
+                  }
+
+                  else{
+                    alert('Smoker 3 cannot smoke now');
+                  }
+                }
+
+                else if(smokers[n]==1){
+                  alert('Smoker 3 has finished smoking');
+                    match=0;
+                    tob=0;
+                    smokers[n]=0;
+                    document.getElementById('tob').style.display= 'none';
+                    document.getElementById('ocb').style.display= 'none';
+                    document.getElementById('match').style.display='none';
+                    document.getElementById('cig2').style.display='none';
+                  }
+
+
+                }
+
+
+      }
+    </script>
+
+
+  </div>
+</body>

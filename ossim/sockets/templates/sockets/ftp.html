@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+{% load static %}
+<style>
+button {
+  background-color: #ff9999;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  border: 2px solid #ff9999;
+
+}
+g{
+  color:white;
+}
+
+#animate {
+width: 50px;
+height: 5px;
+position: absolute;
+background-color: white;
+top: 0%;
+left: 95%;
+opacity: 0;
+}
+
+
+body{
+  background-color:#C594C5;
+}
+</style>
+
+<link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+<title >FTP</title>
+<body style="background-color:#C594C5;">
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+  <div class="container-fluid">
+    <center ><h1  style= "color:white;font-family: 'Montserrat', Helvetica, sans-serif;">File Transfer Protocol</h1>
+      <br/><br/>
+    </center>
+    <button id = "Serv_socket" class="btn btn-primary" type ="button", onclick ="sersocket()", style ="margin-left:430px;height:25px;width:125px;line-height:1; background-color:#f44336;border:#f44336;">Server Socket()</button>
+    <button id = "Client_socket" class="btn btn-primary" type ="button", onclick ="clisocket()", style ="margin-left:170px;height:25px;width:125px;line-height:1; background-color:#f44336;border:#f44336;">Client Socket()</button>
+    <br/><br/>
+    <button id  = "bind" class="btn btn-primary" type ="button", onclick ="bind()", style ="margin-left:430px;height:25px;width:125px;line-height:1" disabled>Bind()</button>
+    <br/><br/>
+    <button id ="listen" class="btn btn-primary" type ="button", onclick ="listen()", style ="margin-left:430px;height:25px;width:125px;line-height:1" disabled>Listen()</button>
+    <button id ="connect" class="btn btn-primary" type ="button", onclick ="connect()", style ="margin-left:170px;height:25px;width:125px;line-height:1" disabled>Connect()</button>
+    <br/><br/>
+    <button id  ="accept"  class="btn btn-primary" type ="button", onclick ="accept()", style ="margin-left:430px;height:25px;width:125px;line-height:1" disabled>Accept()</button>
+      <br/><br/>
+    <button id ="move" class="btn btn-primary" type ="button", onclick ="myMove()", style ="margin-left:430px;height:25px;width:125px;line-height:1" disabled>SendtoClient()</button>
+    <button id ="move2" class="btn btn-primary" type ="button", onclick ="myMove2()", style ="margin-left:170px;height:25px;width:125px;line-height:1" disabled>SendtoServer()</button>
+    <br/><br/>
+    <button id ="close" class="btn btn-primary" type ="button", onclick ="closee()", style ="margin-left:583px;height:25px;width:125px;line-height:1"disabled >Close()</button>
+
+
+
+
+
+
+<br/><br/>
+    <div class = "TERM">
+    <textarea rows="12" cols="30" disabled = "True" id = "servertext" style="margin-left:170px;border-radius:15px;">
+      Waiting for Socket call
+    </textarea>
+    <textarea rows="12" cols="30" disabled = "True" id = "clienttext" style="margin-left:420px;border-radius:15px;">
+      Waiting for Socket call
+    </textarea>
+    <img id = "servfile" src = "{% static './images/blank-file-256.gif' %}" style="margin-left:150px;border-radius:15px; visibility:hidden;">
+    <div id ="animate"></div>
+    <img id = "cliefile" src = "{% static './images/blank-file-3-256.gif' %}" style="margin-left:420px;border-radius:15px; visibility:hidden;">
+    <br/><br/>
+    <button id = "servup" class="btn btn-primary" type ="button", onclick ="servup() ",  style ="margin-left:200px;height:25px;width:125px;line-height:1; background-color:#f44336;border:#f44336; visibility:hidden; ">Upload File</button>
+    <button id = "clientup" class="btn btn-primary" type ="button", onclick ="cliup()", style ="margin-left:550px;height:25px;width:125px;line-height:1; background-color:#f44336;border:#f44336; visibility:hidden;">Upload File</button>
+    <br/><br/>
+
+  </div>
+
+    <script type ="text/javascript">
+   window.alert("Click on socket call buttons to perform the respective functions")
+    var numb1 = 0;
+    var numb2 = 0;
+    var numb3 = 0;
+    var numb4 = 0;
+    function servup()
+    {
+      document.getElementById("servfile").style.visibility = "visible";
+      document.getElementById("servfile").src = "{% static './images/blank-file-256.gif' %}";
+
+      numb3=1;
+    }
+    function cliup()
+    {
+      numb4=1;
+            document.getElementById("cliefile").src = "{% static './images/blank-file-3-256.gif' %}";
+      document.getElementById("cliefile").style.visibility = "visible";
+    }
+    function sersocket()
+    {
+      document.getElementById("bind").style.backgroundColor = "#f44336";
+      document.getElementById("bind").style.border = "#f44336";
+      document.getElementById("close").style.backgroundColor = "#f44336";
+      document.getElementById("close").style.border = "#f44336";
+document.getElementById("Serv_socket").disabled = true;
+document.getElementById("Serv_socket").style.backgroundColor = "#ff9999";
+document.getElementById("Serv_socket").style.border = "#ff9999";
+      document.getElementById("servertext").value="      Waiting to Bind";
+      document.getElementById("bind").disabled = false;
+      document.getElementById("close").disabled = false;
+    }
+
+    function clisocket()
+    {
+      document.getElementById("connect").style.backgroundColor = "#f44336";
+      document.getElementById("connect").style.border = "#f44336";
+      document.getElementById("close").style.backgroundColor = "#f44336";
+      document.getElementById("close").style.border = "#f44336";
+      document.getElementById("Client_socket").disabled = true;
+      document.getElementById("Client_socket").style.backgroundColor = "#ff9999";
+      document.getElementById("Client_socket").style.border = "#ff9999";
+      document.getElementById("clienttext").value="      Waiting to Connect";
+      document.getElementById("connect").disabled = false;
+      document.getElementById("close").disabled = false;
+    }
+    function closee()
+    {
+      numb1 = 0;
+      numb2 = 0;
+      numb3 = 0;
+      numb4 = 0;
+      document.getElementById("servfile").src = "{% static './images/blank-file-256.gif' %}";
+      document.getElementById("cliefile").src = "{% static './images/blank-file-3-256.gif' %}";
+      document.getElementById("servfile").style.visibility = "hidden";
+document.getElementById("cliefile").style.visibility = "hidden";
+      document.getElementById("servertext").style.display = "inline";
+  document.getElementById("clienttext").style.display = "inline";
+      document.getElementById("Serv_socket").style.backgroundColor = "#f44336";
+      document.getElementById("Serv_socket").style.border = "#f44336";
+      document.getElementById("Serv_socket").disabled  = false;
+      document.getElementById("Client_socket").style.backgroundColor = "#f44336";
+      document.getElementById("Client_socket").style.border = "#f44336";
+      document.getElementById("Client_socket").disabled  = false;
+      document.getElementById("close").disabled  = true;
+      document.getElementById("bind").disabled = true;
+      document.getElementById("listen").disabled = true;
+      document.getElementById("connect").disabled = true;
+        document.getElementById("accept").disabled = true;
+        document.getElementById("move").disabled = true;
+        document.getElementById("move2").disabled = true;
+      document.getElementById("servertext").value="      Waiting for Socket Call";
+      document.getElementById("servertext").disabled = true;
+      document.getElementById("clienttext").disabled = true;
+      document.getElementById("clienttext").value="      Waiting for Socket Call";
+      document.getElementById("servertext").style.backgroundColor = '';
+      document.getElementById("clienttext").style.backgroundColor = '';
+      document.getElementById("servertext").style.color = '';
+      document.getElementById("clienttext").style.color = '';
+      document.getElementById("bind").style.backgroundColor = "";
+      document.getElementById("bind").style.border = "";
+      document.getElementById("listen").style.backgroundColor = "";
+      document.getElementById("listen").style.border = "";
+      document.getElementById("accept").style.backgroundColor = "";
+      document.getElementById("accept").style.border = "";
+      document.getElementById("connect").style.backgroundColor = "";
+      document.getElementById("connect").style.border = "";
+      document.getElementById("move").style.backgroundColor = "";
+      document.getElementById("move").style.border = "";
+      document.getElementById("move2").style.backgroundColor = "";
+      document.getElementById("move2").style.border = "";
+      document.getElementById("close").style.backgroundColor = "";
+      document.getElementById("close").style.border = "";
+      document.getElementById("clientup").style.visibility = "hidden";
+        document.getElementById("servup").style.visibility = "hidden";
+    }
+    function bind()
+    {
+      document.getElementById("bind").style.backgroundColor = "";
+      document.getElementById("bind").style.border = "";
+      document.getElementById("listen").style.backgroundColor = "#f44336";
+      document.getElementById("listen").style.border = "#f44336";
+      document.getElementById("bind").disabled = true;
+      document.getElementById("servertext").value="      Waiting for Listen";
+      document.getElementById("listen").disabled = false;
+
+
+    }
+
+    function listen()
+    {
+      numb1 = 1;
+      document.getElementById("listen").style.backgroundColor = "";
+      document.getElementById("listen").style.border = "";
+      document.getElementById("accept").style.backgroundColor = "#f44336";
+      document.getElementById("accept").style.border = "#f44336";
+      document.getElementById("listen").disabled = true;
+      document.getElementById("servertext").value="      Waiting to Accept";
+      document.getElementById("accept").disabled = false;
+    }
+
+    function connect()
+    {
+
+      if(numb1 == 1)
+      {document.getElementById("connect").style.backgroundColor = "";
+      document.getElementById("connect").style.border = "";
+      document.getElementById("accept").style.backgroundColor = "#f44336";
+      document.getElementById("accept").style.border = "#f44336";
+      document.getElementById("connect").disabled = true;
+      document.getElementById("clienttext").value="      Waiting to be Accepted";
+      numb2=1;}
+      else {
+        document.getElementById("clienttext").value="      Waiting for server to listen";
+      }
+
+
+    }
+
+    function accept()
+    {
+      if(numb2==1)
+      {
+      document.getElementById("clientup").style.visibility = "visible";
+        document.getElementById("servup").style.visibility = "visible";
+      document.getElementById("accept").style.backgroundColor = "";
+      document.getElementById("accept").style.border = "";
+      document.getElementById("accept").disabled = true;
+
+      document.getElementById("clienttext").value = "File not uploaded";
+      document.getElementById("servertext").value = "File not uploaded";
+
+      document.getElementById("move").disabled = false;
+      document.getElementById("move2").disabled = false;
+      document.getElementById("move").style.backgroundColor = "#f44336";
+      document.getElementById("move").style.border = "#f44336";
+      document.getElementById("move2").style.backgroundColor = "#f44336";
+      document.getElementById("move2").style.border = "#f44336";
+      document.getElementById("servertext").style.display = "none";
+  document.getElementById("clienttext").style.display = "none";
+
+      alert('Client Server File transfering is now enabled');}
+      else {
+        document.getElementById("servertext").value="      Waiting for client to connect to server";
+      }
+    }
+
+    function myMove() {
+      if(numb3==1)
+      {
+        alert("Sending file to client")
+        document.getElementById("servfile").style.visibility = "hidden";
+        document.getElementById("cliefile").style.visibility = "visible";
+        document.getElementById("cliefile").src = "{% static './images/blank-file-256.gif' %}";
+        numb3 = 0;
+        numb4 = 0;
+      }
+      else {
+        {
+          alert("File not uploaded")
+        }
+      }
+
+    }
+
+    function myMove2() {
+      if(numb4==1)
+      {
+        alert("Sending file to server")
+        document.getElementById("cliefile").style.visibility = "hidden";
+        document.getElementById("servfile").style.visibility = "visible";
+        document.getElementById("servfile").src = "{% static './images/blank-file-3-256.gif' %}";
+        numb4 = 0;
+        numb3 = 0;
+
+      }
+      else {
+        {
+          alert("File not uploaded")
+        }
+      }
+    }
+
+
+
+    </script>
+  </div>
+</body>

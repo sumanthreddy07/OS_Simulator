@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resource Allocation Graph</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+
+<style>
+    .maindiv{
+        background-color: #4E5D6C;
+        margin: 1em 4em 1em 4em;
+    }
+    .clear {
+        clear:both; 
+        overflow:hidden; 
+        line-height:0; 
+        font-size:0; 
+        height:0
+    }
+.clearfix:after{visibility:hidden;display:block;font-size:0;content:" ";clear: both;height:0}
+    .mainheader{
+        margin: 1em 4em 1em 4em;
+        padding: 0em;
+        background-color: #4E5D6C;
+        color: #f4f4f4;
+    }
+    .info{
+        margin: 1em 0em 1em 2em;
+        padding: auto;
+    }
+    .ffamily{
+        color: #f4f4f4;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 2em;
+        margin-left: 1em;
+    }
+    .image1{
+        width: 50%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .image2{
+        margin:0em 0em 0em 12em;
+        width: 17%;
+    }
+    .footer1{
+        margin: em 4em 1em 4em;
+        padding: 0em;
+        background-color: #27496d;
+    }
+    .website{
+        float: left;
+        max-width: 50%;
+    }
+    .website a{
+        word-wrap: break-word;
+        font-size: 24px;
+        color: #ffffff;
+        font-family: Arial, Helvetica, sans-serif; 
+        display:block;background:url(http://i3.cdn-image.com/__media__/pics/12471/logo.png) no-repeat left center; 
+        font-weight: bold; 
+        padding: 15px 0px 15px 65px;
+        display: block;
+    }
+    .website img{
+    float: left;
+    padding-right: 12px
+    }
+    .logo{
+        float: right;
+        padding-top: 12px
+    }
+    .header{
+        margin: 0px 0 0px 0;
+        background-color: #161d27;
+        padding: 0px 0;
+    }
+    .footer1{
+        background-color: #4E5D6C;
+        color: #f4f4f4;
+        font-family: 'Times New Roman', Times, serif;
+        font-size: 2em;
+        margin-left: 2em;
+    }
+    .image3{
+        width: 60%;
+    }
+    .bsize{
+        width: 20%;
+        margin-left: 20em;
+    }
+    .divimg{
+        background-color: #eae7d9;
+        margin : 0em 15em 0em 15em;
+    }
+    .ext2{
+        margin-left: 0em;
+        width: 18%;
+    }
+    .aa{
+        color: #f64b3c;
+    }
+    .aa:hover{
+        color: #c81912;
+    }
+
+</style>
+
+<body style="background-color: #2B3E50;">
+    <div class="clearfix header">
+        <div class="main-container">
+            <div class="website clearfix"><a href="" target="_blank">Resource Allocation Graph</a></span></div>
+            <div class="logo">
+                <div class="container-fluid" style="padding:0px 20px 20px 0px;margin-bottom: 10px">
+		            <a href="/login/desktop">
+			            <button type="button" class="btn btn-primary"  style="float:right; width: 150px;height: 50px">Go to Desktop</button>
+		            </a>
+	            </div>
+            </div>
+        </div>
+    </div>
+    <div class="maindiv">
+    <header>
+        <div class="main-container mainheader" >
+            <h1 style="font-size: 4em; color: #f4f4f4;"><p>Resource Allocation Graph</p></h1>
+            <br>
+            <div class=" info">
+            <h1 class="ffamily" style="color: #f4f4f4; font-family: 'Times New Roman', Times, serif; margin-left: 1em;"><p>
+                The resource allocation graph is the pictorial representation of the state of a system. As its name suggests, the resource allocation graph is the complete information about all the processes which are holding some resources or waiting for some resources.
+            </p></h1>
+            <br><br>
+            <p class="ffamily" style="margin-left: 1em;">
+                It also contains the information about all the instances of all the resources whether they are available or being used by the processes.
+                <br>
+                In Resource allocation graph, the process is represented by a Circle while the Resource is represented by a rectangle. Let's see the types of vertices and edges in detail.
+            </p>
+        </div>
+        </div>
+        
+    </header>
+    
+    <div class="divimg">
+        <img class="image1" src="https://static.javatpoint.com/operating-system/images/os-resource-allocation-graph.png" alt="Vertices in OS-RAG">
+    </div>
+    <div class="mainheader">    
+        <p class="ffamily">
+        Edges in RAG are also of two types, one represents assignment and other represents the wait of a process for a resource. The above image shows each of them.
+        <br>
+        A resource is shown as assigned to a process if the tail of the arrow is attached to an instance to the resource and the head is attached to a process.
+        <br>
+        A process is shown as waiting for a resource if the tail of an arrow is attached to the process while the head is pointing towards the resource.
+        </p>
+    </div>
+    <div class="divimg">
+        <img class="image2" src="https://static.javatpoint.com/operating-system/images/os-resource-allocation-graph2.png" alt="Request Edges">
+        <img class="image2" src="https://static.javatpoint.com/operating-system/images/os-resource-allocation-graph3.png" alt="Assignment Edges">
+    </div>    
+    <div class="mainheader">
+        <p class="ffamily">To check processes can have safe sequence use <a class="aa" href="/deadlock/bankers">Banker's Algorithm</a> .</p>
+    </div>
+        <footer>
+            <div class="footer1">
+                For Further Information :
+                <br>
+                <button class="btn btn-light bsize" onclick="window.location = 'http://www.geeksforgeeks.org/resource-allocation-graph-rag-in-operating-system/';"><img class="image3" src="https://media.geeksforgeeks.org/wp-content/uploads/geeksforgeeks-6.png" alt="geeksforgeeks"></button>
+                <button class="btn btn-light bsize ext2" onclick="window.location = 'https://en.wikipedia.org/wiki/Resource_allocation_(computer)'"><img class="image3" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/Wikipedia-word.svg/261px-Wikipedia-word.svg.png" alt="Wikipedia"></button>
+            </div>
+        </footer>
+    </div>
+</body>
+</html>

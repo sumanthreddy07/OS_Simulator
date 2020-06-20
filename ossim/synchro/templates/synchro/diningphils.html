@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+{% load static %}
+<head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="{% static 'css/diningphils.css' %}" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <div class="container-fluid">
+    <center><h1>Dining Philosopher's Problem</h1></center>
+
+    <center><h2> Click on Philisopher to change state </h2></center>
+    <br>
+    <br>
+    <br>
+
+    <div class="legend">
+
+      <img src="/static/images/phil.jpeg"> - <b>Thinking</b> <br><br>
+      <img src="/static/images/hungry.jpeg"> - <b>Hungry</b> <br> <br>
+      <img src="/static/images/eating.jpeg"> - <b>Eating</b> <br> <br>
+    </div>
+
+    <button type = "button", id ="table", name = "table"> </button>
+
+
+      <img src="/static/images/phil.jpeg"<button type = "button", id ="one", name = "one" , onclick="initiate('0')" >  </button>
+      <img src="/static/images/phil.jpeg"<button type = "button", id ="five", name = "one" , onclick="initiate('4')"> </button>
+      <img src="/static/images/phil.jpeg"<button type = "button", id ="two", name = "one" , onclick="initiate('1')"> </button>
+      <img src="/static/images/phil.jpeg"<button type = "button", id ="four", name = "one" , onclick="initiate('3')"> </button>
+      <img src="/static/images/phil.jpeg"<button type = "button", id ="three", name = "one" , onclick="initiate('2')"> </button>
+
+    <button type = "button", id ="first", name = "one"> C1 </button>
+    <button type = "button", id ="second", name = "one"> C2 </button>
+    <button type = "button", id ="third", name = "one"> C3 </button>
+    <button type = "button", id ="fifth", name = "one"> C5 </button>
+    <button type = "button", id ="fourth", name = "one"> C4 </button>
+
+
+    <script type = "text/javascript">
+      var phils= [0,0,0,0,0], forks=[0,0,0,0,0];
+      function initiate(num)
+      {
+          var n = num;
+          n = parseInt(n);
+          //alert(n);
+          if(phils[n]==0)
+          {
+            phils[n]=1;
+          }
+          else if(phils[n]==1)
+          {
+            //alert(typeof n);
+            if(forks[n]==0 && forks[(n+1)%5]==0)
+            {
+              phils[n]=2;
+              forks[n]=1;
+
+              forks[(n+1)%5]=1;
+            }
+            else
+            {
+              alert("Philisopher cannot eat now because his chopsticks are being used!");
+            }
+          }
+          else if(phils[n]==2)
+          {
+            phils[n]=0;
+            forks[n]=0;
+            forks[(n+1)%5]=0;
+          }
+
+          if(phils[0]==0)
+          {
+              document.getElementsByTagName('img')[3].src='/static/images/phil.jpeg';
+          }
+          if(phils[1]==0)
+          {
+              document.getElementsByTagName('img')[5].src='/static/images/phil.jpeg';
+          }
+          if(phils[2]==0)
+          {
+              document.getElementsByTagName('img')[7].src='/static/images/phil.jpeg';
+          }
+          if(phils[3]==0)
+          {
+              document.getElementsByTagName('img')[6].src='/static/images/phil.jpeg';
+          }
+          if(phils[4]==0)
+          {
+              document.getElementsByTagName('img')[4].src='/static/images/phil.jpeg';
+          }
+
+
+
+          if(phils[0]==1)
+          {
+            document.getElementsByTagName('img')[3].src='/static/images/hungry.jpeg';
+          }
+          if(phils[1]==1)
+          {
+            document.getElementsByTagName('img')[5].src='/static/images/hungry.jpeg';
+          }
+          if(phils[2]==1)
+          {
+            document.getElementsByTagName('img')[7].src='/static/images/hungry.jpeg';
+          }
+          if(phils[3]==1)
+          {
+            document.getElementsByTagName('img')[6].src='/static/images/hungry.jpeg';
+          }
+          if(phils[4]==1)
+          {
+            document.getElementsByTagName('img')[4].src='/static/images/hungry.jpeg';
+          }
+
+          if(phils[0]==2)
+          {
+            document.getElementsByTagName('img')[3].src='/static/images/eating.jpeg';
+          }
+          if(phils[1]==2)
+          {
+            document.getElementsByTagName('img')[5].src='/static/images/eating.jpeg';
+          }
+          if(phils[2]==2)
+          {
+            document.getElementsByTagName('img')[7].src='/static/images/eating.jpeg';
+          }
+          if(phils[3]==2)
+          {
+            document.getElementsByTagName('img')[6].src='/static/images/eating.jpeg';
+          }
+          if(phils[4]==2)
+          {
+            document.getElementsByTagName('img')[4].src='/static/images/eating.jpeg';
+          }
+
+          if(forks[0]==0)
+          {
+            document.getElementById("first").style.backgroundColor = '#DCDCDC';
+          }
+          if(forks[1]==0)
+          {
+            document.getElementById("second").style.backgroundColor = '#DCDCDC';
+          }
+          if(forks[2]==0)
+          {
+            document.getElementById("third").style.backgroundColor = '#DCDCDC';
+          }
+          if(forks[3]==0)
+          {
+            document.getElementById("fourth").style.backgroundColor = '#DCDCDC';
+          }
+          if(forks[4]==0)
+          {
+            document.getElementById("fifth").style.backgroundColor = '#DCDCDC';
+          }
+
+
+
+          if(forks[0]==1)
+          {
+            document.getElementById("first").style.backgroundColor = '#FF0000';
+          }
+          if(forks[1]==1)
+          {
+            document.getElementById("second").style.backgroundColor = '#FF0000';
+          }
+          if(forks[2]==1)
+          {
+            document.getElementById("third").style.backgroundColor = '#FF0000';
+          }
+          if(forks[3]==1)
+          {
+            document.getElementById("fourth").style.backgroundColor = '#FF0000';
+          }
+          if(forks[4]==1)
+          {
+            document.getElementById("fifth").style.backgroundColor = '#FF0000';
+          }
+      }
+    </script>
+
+
+  </div>
+</body>

@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Disk Scheduling</title>
+	 <meta charset="utf-8">
+  	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="https://code.highcharts.com/highcharts.js"></script>
+	<script src="https://code.highcharts.com/modules/series-label.js"></script>
+	<script src="https://code.highcharts.com/modules/exporting.js"></script>
+	<script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js" integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl" crossorigin="anonymous"></script>
+	<style>
+		input[type=text],input[type=number],select{
+    border: none;
+    height:40px;
+    border-bottom: 2px solid red;
+    font-weight: bold;
+}
+input[type=text]:focus,input[type=number]:focus,select:focus {
+    border: none;
+    height:40px;
+    border-bottom: 5px solid blue;
+    font-weight: bold;
+  
+}
+#demo{
+	font-weight: bold;
+	font-size:20px;
+	color:#ff1a1a;
+}
+#snackbar {
+    visibility: hidden; /* Hidden by default. Visible on click */
+    min-width: 250px; /* Set a default minimum width */
+    margin-left: -125px; /* Divide value of min-width by 2 */
+    background-color: #333; /* Black background color */
+    color: #fff; /* White text color */
+    text-align: center; /* Centered text */
+    border-radius: 2px; /* Rounded borders */
+    padding: 16px; /* Padding */
+    position: fixed; /* Sit on top of the screen */
+    z-index: 1; /* Add a z-index if needed */
+    left: 50%; /* Center the snackbar */
+    bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+    visibility: visible; /* Show the snackbar */
+
+/* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+However, delay the fade out process for 2.5 seconds */
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;}
+    to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;}
+    to {bottom: 0; opacity: 0;}
+}
+
+
+
+
+.container2 {
+  height: 100%; /* Full-height: remove this if you want "auto" height */
+  width: 220px; /* Set the width of the sidebar */
+  position: fixed; /* Fixed Sidebar (stay in place on scroll) */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #111; /* Black */
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 115px;
+}
+
+
+
+.container2 a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+
+
+.input--style-4
+{
+ padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 11px;
+  color: #818181;
+  display: block;
+}
+.label
+{
+padding: 2px 8px 2px 16px;
+  text-decoration: none;
+  font-size: 21px;
+  color: #818181;
+  display: block;
+}
+
+
+
+	</style>
+
+
+</head>
+<body  style="background-image: url('https://specials-images.forbesimg.com/imageserve/985895696/960x0.jpg?fit=scale');background-size:cover">
+	<header class="container-fluid"  style="padding:10px">
+		<!-- background: linear-gradient(to right,#d24dff, #4747d1) -->
+		<div align="center">
+			<b style="font-size:45px;color: rgb(83, 7, 7); font-family: Arial, Helvetica, sans-serif;">Disk Scheduling</b>
+		</div>
+		
+	</header>
+	<div id="snackbar"></div>
+	<div class="container2" >
+		<div style="opacity: 1">
+			
+				<!-- <div>Enter the details</div> -->
+				<span>
+				<div>
+					<span  style="padding-right:5px;max-width: 20px" >
+					<label class="label">Request</label>
+						<input class="input--style-4" id="points" type="text" placeholder=" Enter with spaces">
+					</span>
+				</div>	
+				<div>
+					<span style="padding-right: 5px">
+					<label class="label">Current Position</label>
+						<input class="input--style-4" id="head_cur"  type="number" min="0"  step="1"  placeholder=" Enter current Position">
+					</span>
+				</div>	
+				
+				<div>
+					<span style="padding-right: 5px">
+					<label class="label">Previous Position</label>
+						<input class="input--style-4" id="prev_head"  type="number" min="0"  step="1"  placeholder=" Enter previous Position">
+					</span>
+					
+				</div>	
+				
+				<div>
+					<span style="padding-right: 5px">
+					<label class="label">Total Cylinders</label>
+						<input class="input--style-4" id="cylinders"  type="number" min="0"  step="1"  placeholder="Enter total Cylinders">
+					</span>
+				</div>	
+				
+
+					<span style="padding-right: 15px;">
+					<label class="label">Algorithm</label>
+						<select class="input--style-4" id="types_sched">
+							<option value="">--SELECT ALGO--</option>
+							<option value="fcfs">FCFS</option>
+							<option value="sstf">SSTF</option>
+							<option value="scan">SCAN</option>
+							<option value="cscan">CSCAN</option>
+							<option value="look">LOOK</option>
+							<option value="clook">CLOOK</option>
+							<option value="pickup">PICKUP</option>
+							<option value="lifo">LIFO</option>
+						</select>
+					</span>
+					<span style="padding-right: 5px;">
+					<label class="label">Submit</label>
+						<button type="button" class="btn btn-primary" onclick="executeFunc()"><b><i class="fas fa-check"></i></b></button>
+					</span>
+				</span>
+					
+	
+
+		</div>
+		
+		
+		
+			
+
+
+	</div>
+	
+	
+	
+	
+
+	
+
+	<br>
+	<div class="container" style="background-color: white;opacity: 0.9;padding:0px 20px 10px 20px">
+			<div style="padding:10px">
+				<div id="demo" ></div>
+				<div id="container" style="min-width: 300px;max-width: 800px; height: 380px; margin: 0 auto"></div>
+			</div>
+	</div>
+	
+	<br>
+	<div class="container-fluid" style="padding:0px 20px 20px 0px;margin-bottom: 40px">
+		<a href="/login/desktop">
+			<button type="button" class="btn btn-primary"  style="background-color: rgb(83, 7, 7); float:right">Go to Desktop</button>
+		</a>
+	</div>
+
+</body>
+
+
+
+
+
+
+
+<script>
+/* global document */
+// Load the fonts
+//import Highcharts from '../parts/Globals.js';
+	Highcharts.createElement('link', {
+	   href: 'https://fonts.googleapis.com/css?family=Unica+One',
+	   rel: 'stylesheet',
+	   type: 'text/css'
+	}, null, document.getElementsByTagName('head')[0]);
+
+	Highcharts.theme = {
+	   colors: ['#2b908f', '#90ee7e', '#f45b5b', '#7798BF', '#aaeeee', '#ff0066',
+	      '#eeaaee', '#55BF3B', '#DF5353', '#7798BF', '#aaeeee'],
+	   chart: {
+	      backgroundColor: {
+	         linearGradient: { x1: 0, y1: 0, x2: 1, y2: 1 },
+	         stops: [
+	            [0, '#2a2a2b'],
+	            [1, '#3e3e40']
+	         ]
+	      },
+	      style: {
+	         fontFamily: '\'Times\', sans-serif'
+	      },
+	      plotBorderColor: '#606063'
+	   },
+	   title: {
+	      style: {
+	         color: '#E0E0E3',
+	         textTransform: 'uppercase',
+	         fontSize: '20px'
+	      }
+	   },
+	   subtitle: {
+	      style: {
+	         color: '#E0E0E3',
+	         textTransform: 'uppercase'
+	      }
+	   },
+	   xAxis: {
+	      gridLineColor: '#707073',
+	      labels: {
+	         style: {
+	            color: '#E0E0E3'
+	         }
+	      },
+	      lineColor: '#707073',
+	      minorGridLineColor: '#505053',
+	      tickColor: '#707073',
+	      title: {
+	         style: {
+	            color: '#A0A0A3'
+
+	         }
+	      }
+	   },
+	   yAxis: {
+	      gridLineColor: '#707073',
+	      labels: {
+	         style: {
+	            color: '#E0E0E3'
+	         }
+	      },
+	      lineColor: '#707073',
+	      minorGridLineColor: '#505053',
+	      tickColor: '#707073',
+	      tickWidth: 1,
+	      title: {
+	         style: {
+	            color: '#A0A0A3'
+	         }
+	      }
+	   },
+	   tooltip: {
+	      backgroundColor: 'rgba(0, 0, 0, 0.85)',
+	      style: {
+	         color: '#F0F0F0'
+	      }
+	   },
+	   plotOptions: {
+	      series: {
+	         dataLabels: {
+	            color: '#B0B0B3'
+	         },
+	         marker: {
+	            lineColor: '#333'
+	         }
+	      },
+	      boxplot: {
+	         fillColor: '#505053'
+	      },
+	      candlestick: {
+	         lineColor: 'white'
+	      },
+	      errorbar: {
+	         color: 'white'
+	      }
+	   },
+	   legend: {
+	      itemStyle: {
+	         color: '#E0E0E3'
+	      },
+	      itemHoverStyle: {
+	         color: '#FFF'
+	      },
+	      itemHiddenStyle: {
+	         color: '#606063'
+	      }
+	   },
+	   credits: {
+	      style: {
+	         color: '#666'
+	      }
+	   },
+	   labels: {
+	      style: {
+	         color: '#707073'
+	      }
+	   },
+
+	   drilldown: {
+	      activeAxisLabelStyle: {
+	         color: '#F0F0F3'
+	      },
+	      activeDataLabelStyle: {
+	         color: '#F0F0F3'
+	      }
+	   },
+
+	   navigation: {
+	      buttonOptions: {
+	         symbolStroke: '#DDDDDD',
+	         theme: {
+	            fill: '#505053'
+	         }
+	      }
+	   },
+
+	   // scroll charts
+	   rangeSelector: {
+	      buttonTheme: {
+	         fill: '#505053',
+	         stroke: '#000000',
+	         style: {
+	            color: '#CCC'
+	         },
+	         states: {
+	            hover: {
+	               fill: '#707073',
+	               stroke: '#000000',
+	               style: {
+	                  color: 'white'
+	               }
+	            },
+	            select: {
+	               fill: '#000003',
+	               stroke: '#000000',
+	               style: {
+	                  color: 'white'
+	               }
+	            }
+	         }
+	      },
+	      inputBoxBorderColor: '#505053',
+	      inputStyle: {
+	         backgroundColor: '#333',
+	         color: 'silver'
+	      },
+	      labelStyle: {
+	         color: 'silver'
+	      }
+	   },
+
+	   navigator: {
+	      handles: {
+	         backgroundColor: '#666',
+	         borderColor: '#AAA'
+	      },
+	      outlineColor: '#CCC',
+	      maskFill: 'rgba(255,255,255,0.1)',
+	      series: {
+	         color: '#7798BF',
+	         lineColor: '#A6C7ED'
+	      },
+	      xAxis: {
+	         gridLineColor: '#505053'
+	      }
+	   },
+
+	   scrollbar: {
+	      barBackgroundColor: '#808083',
+	      barBorderColor: '#808083',
+	      buttonArrowColor: '#CCC',
+	      buttonBackgroundColor: '#606063',
+	      buttonBorderColor: '#606063',
+	      rifleColor: '#FFF',
+	      trackBackgroundColor: '#404043',
+	      trackBorderColor: '#404043'
+	   },
+
+	   // special colors for some of the
+	   legendBackgroundColor: 'rgba(0, 0, 0, 0.5)',
+	   background2: '#505053',
+	   dataLabelsColor: '#B0B0B3',
+	   textColor: '#C0C0C0',
+	   contrastTextColor: '#F0F0F3',
+	   maskColor: 'rgba(255,255,255,0.3)'
+	};
+
+	// Apply the theme
+	Highcharts.setOptions(Highcharts.theme);
+
+
+</script>
+<script>
+function plotthe(typo,data1,data2){
+ //data = [23,43,64,23,98]
+ Highcharts.chart('container', {
+    chart: {
+        type: 'line'
+    },
+    title: {
+        text: 'Disk Scheduling - '+ typo
+    },
+
+ 
+    yAxis: {
+        title: {
+            text: 'HEAD MOVEMENTS'
+        }
+    },
+    plotOptions: {
+        line: {
+            dataLabels: {
+                enabled: true
+            },
+            enableMouseTracking: true
+        },
+                series: {
+            label: {
+                connectorAllowed: true
+            },
+            pointStart: 0
+        }
+    },
+    series: [{
+        name: ' ',
+        data: data1,
+        pointStart:1
+    },
+    {
+        name: '  ',
+        data: data2,
+        pointStart:data1.length
+    }]
+});}
+</script>
+<script>
+	function myFunction() {
+    // Get the snackbar DIV
+    var x = document.getElementById("snackbar")
+
+    // Add the "show" class to DIV
+    x.className = "show";
+
+    // After 3 seconds, remove the show class from DIV
+    setTimeout(function(){ x.className = x.className.replace("show", ""); }, 4000);
+}
+</script>
+
+<script>
+
+	function executeFunc(){
+
+		var points = document.getElementById("points").value;
+		var head_cur = document.getElementById("head_cur").value;
+		var prev_head = document.getElementById("prev_head").value;
+		var cylinders = document.getElementById("cylinders").value;
+		cylinders = cylinders -1;
+		var types_sched = document.getElementById("types_sched").value;
+		var j;
+		var temp = points.split(' ').map(Number);
+		for(j=0;j<temp.length;j++){
+			if(temp[j]<0 || temp [j]>cylinders)
+			{
+				j = -1;
+				break;
+			}
+		}
+
+		if(points==""){
+		myFunction();
+		document.getElementById("snackbar").innerHTML ="Enter the Request Queue of cylinders ...";
+	}
+		else if(head_cur==""){
+		myFunction();
+		document.getElementById("snackbar").innerHTML ="Enter the Current Head position ...";
+	}
+		else if(prev_head==""){
+		myFunction();
+		document.getElementById("snackbar").innerHTML ="Enter the Previous Head position ...";
+	}
+		else if(cylinders==""){
+		myFunction();
+		document.getElementById("snackbar").innerHTML ="Enter the Total Number of Cylinders ...";
+	}
+		else if(types_sched==""){
+		myFunction();
+		document.getElementById("snackbar").innerHTML ="Select a Disk Scheduling Algorithm ...";
+	}
+	else if(j==-1){
+		myFunction();
+		document.getElementById("snackbar").innerHTML ="Enter a valid cylinder value ...";
+	}
+	else if(head_cur<0 || prev_head <0 || cylinders < 0){
+		myFunction();
+		document.getElementById("snackbar").innerHTML ="Enter a non negative value ...";
+	}
+
+else
+
+{		 
+		 points = points.split(' ').map(Number);
+		 head_cur = parseInt(head_cur);
+		 prev_head = parseInt(prev_head);
+		 cylinders = parseInt(cylinders);
+		 console.log(typeof points);
+		 console.log(points);
+
+		 if(types_sched=="fcfs"){
+		 	document.getElementById("demo").innerHTML = "TOTAL SEEK TIME : " + fcfs(points,head_cur);
+		 }
+		 else if(types_sched=="sstf"){
+		 	document.getElementById("demo").innerHTML =  "TOTAL SEEK TIME : " + sstf(points,head_cur);
+		 }
+		 else if(types_sched=="scan"){
+		 	document.getElementById("demo").innerHTML =  "TOTAL SEEK TIME : " + scan(points,head_cur,cylinders,prev_head);
+		 //console.log(a);
+		}
+		else if(types_sched=="cscan"){
+			document.getElementById("demo").innerHTML = "TOTAL SEEK TIME : " +  cscan(points,head_cur,cylinders,prev_head);
+		}
+		else if(types_sched=="look"){
+			document.getElementById("demo").innerHTML =  "TOTAL SEEK TIME : " + look(points,head_cur,cylinders,prev_head);
+		}
+		else if(types_sched=="clook"){
+			document.getElementById("demo").innerHTML = "TOTAL SEEK TIME : " +  clook(points,head_cur,cylinders,prev_head);
+		}
+		else if(types_sched=="pickup"){
+			document.getElementById("demo").innerHTML = "TOTAL SEEK TIME : " +  pickup(points,head_cur,cylinders,prev_head);
+		}
+		else if(types_sched=="lifo"){
+			document.getElementById("demo").innerHTML = "TOTAL SEEK TIME : " +  lifo(points,head_cur,cylinders,prev_head);
+		}
+
+
+}
+		 // document.getElementById("demo").innerHTML = cscan(a,53,199,63);
+		 
+		};
+
+function fcfs(arr,cur){
+	console.log(arr);
+	var i;
+	var result=0;
+	var ploty=[];
+	ploty.push(cur);
+	for(i=0 ; i<arr.length; i++){
+		var k = cur -arr[i];
+		k=Math.abs(k);
+		console.log(k);
+		result = result + k;
+		cur=arr[i];
+		ploty.push(cur);
+	}
+	plotthe("First Come First Serve",ploty);
+	return result;
+}
+
+function pickup(arr,cur){
+	console.log(arr);
+	var i;
+	var result=0;
+	var ploty=[];
+	var first = arr[0];
+	arr.sort(function(a, b){return a-b});
+	console.log(arr);
+	ploty.push(cur);
+	var z;
+	if(cur<=first){
+		for(i=0;i<arr.length;i++){
+			if(arr[i]>=cur)
+				{z=i;break;console.log(i);}
+		}
+		for(i=z ; i<arr.length; i++){
+			var k = Math.abs(cur - arr[i]);
+			console.log(result);
+			result = result + k;
+			cur = arr[i];
+			ploty.push(cur);
+		}
+		for(i=z-1 ; i>=0; i--){
+			var k = cur -arr[i];
+			k=Math.abs(k);
+			console.log(result);
+			console.log(k);
+			result = result + k;
+			cur=arr[i];
+			ploty.push(cur);
+		}
+	}
+	else {
+		for(i=arr.length;i>=0;i--){
+			if(arr[i]<=cur)
+				{z=i;break;console.log(i);}
+		}
+		for(i=z ; i>=0; i--){
+			var k = Math.abs(cur - arr[i]);
+			console.log(result);
+			result = result + k;
+			cur = arr[i];
+			ploty.push(cur);
+		}
+		for(i=z+1 ; i<arr.length; i++){
+			var k = cur -arr[i];
+			k=Math.abs(k);
+			console.log(result);
+			console.log(k);
+			result = result + k;
+			cur=arr[i];
+			ploty.push(cur);
+		}	
+	}
+	// result = result + Math.abs(first-cur);
+	plotthe("Pickup ",ploty);
+	return result;
+}
+
+function lifo(arr,cur){
+	arr.reverse();
+	console.log(arr);
+	var i;
+	var result=0;
+	var ploty=[];
+	ploty.push(cur);
+	for(i=0 ; i<arr.length; i++){
+		var k = cur -arr[i];
+		k=Math.abs(k);
+		console.log(k);
+		result = result + k;
+		cur=arr[i];
+		ploty.push(cur);
+	}
+	plotthe("Last in Serve First",ploty);
+	return result;
+}
+
+
+function sstf(arr,cur){
+	console.log(arr);
+	var i,j;
+	var result=0;
+	var plot=[];
+	plot.push(cur);
+	for(i=0 ; i<arr.length; i++){
+		var sm=99999999,pos,k; 
+		for(j=0;j<arr.length;j++)
+		{ 
+			k = cur -arr[j]; 
+			k=Math.abs(k);
+			if(k<sm)
+				{sm=k; pos=j;}
+
+		}
+
+		console.log(sm,arr[pos],cur,arr[pos]-cur);
+		result = result +sm;
+		cur=arr[pos];
+		plot.push(arr[pos]);
+		arr[pos]=99999999;
+
+	}
+	//console.log(plot);
+	plotthe("Shortest Seek Time First",plot);
+	return result;
+}
+
+function scan(arr,cur,total,pre){
+ var plot=[];
+ var y1=[];
+ var seek=0;
+ plot.push(cur);
+ arr.sort(function(a, b){return a-b});
+ if(cur<=pre){
+ var store=-1,hold=cur;
+ for(a1=0;a1<arr.length;++a1){if(arr[a1]<=cur){store=a1;}}
+ var count=1;
+ for(a1=store;a1>=0&&store!=-1;--a1){
+ plot.push(arr[a1]);
+ y1.push(-1*count);
+ ++count;
+ console.log(seek);
+ seek=seek+Math.abs(hold-arr[a1]);
+ hold=arr[a1];
+ }
+ plot.push(0);
+ y1.push(-1*count);
+ console.log(seek);
+ seek=seek+hold;
+ hold=0;
+ ++count;
+ for(a1=store+1;a1<arr.length;++a1){
+ plot.push(arr[a1]);
+ y1.push(-1*count);
+ ++count; 
+ console.log(seek); 
+ seek=seek+Math.abs(hold-arr[a1]);
+ hold=arr[a1]; 
+ }
+ }
+ else{
+ var store=-1,hold=cur;
+ for(a1=0;a1<arr.length;++a1){if(arr[a1]>=cur){store=a1;break}}
+ var count=1;
+ for(a1=store;a1<arr.length&&store!=-1;++a1){
+ plot.push(arr[a1]);
+ y1.push(-1*count);
+ ++count; 
+ seek=seek+Math.abs(hold-arr[a1]);
+ hold=arr[a1]; 
+ }
+ plot.push(total);
+ y1.push(-1*count);
+ seek=seek+total-hold;
+ hold=total;
+ ++count;
+ if(store==-1)
+ store=arr.length;
+ for(a1=store-1;a1>=0;--a1){
+ plot.push(arr[a1]);
+ y1.push(-1*count);
+ ++count;
+ seek=seek+Math.abs(hold-arr[a1]);
+ hold=arr[a1];
+ }
+ 
+ }
+ console.log(seek);
+ console.log(plot);
+ console.log(y1);
+ plotthe("SCAN",plot);
+ return seek;
+ }
+
+
+
+
+
+ 
+function cscan(arr,cur,total,pre){
+ var plot=[],x2=[],plot2=[];
+ var y1=[],y2=[],y3=[];
+ var seek=0;
+ plot.push(cur);
+ arr.sort(function(a, b){return a-b});
+ if(cur<=pre){
+ var store=-1,hold=cur;
+ for(a1=0;a1<arr.length;++a1){if(arr[a1]<=cur){store=a1;}}
+ var count=1;
+ for(a1=store;a1>=0&&store!=-1;--a1){ 
+ plot.push(arr[a1]);
+ y1.push(-1*count);
+ ++count;
+ seek=seek+Math.abs(hold-arr[a1]);
+ hold=arr[a1];
+ }
+ plot.push(0);
+ y1.push(-1*count);
+ seek=seek+hold;
+ hold=total;
+ x2.push(0);
+ y2.push(-1*count);
+ x2.push(total);
+ y2.push(-1*count);
+ 
+ plot2.push(total);
+ y3.push(-1*count);
+ ++count;
+ 
+ for(a1=arr.length-1;a1>store;--a1){
+ plot2.push(arr[a1]);
+ y3.push(-1*count);
+ ++count; 
+ seek=seek+Math.abs(hold-arr[a1]);
+ hold=arr[a1]; 
+ }
+ }
+ else{
+ var store=-1,hold=cur;
+ for(a1=0;a1<arr.length;++a1){if(arr[a1]>=cur){store=a1;break;}}
+ var count=1;
+ for(a1=store;a1<arr.length&&store!=-1;++a1){
+ plot.push(arr[a1]);
+ y1.push(-1*count);
+ ++count;
+ seek=seek+Math.abs(hold-arr[a1]);
+ hold=arr[a1];
+ }
+ plot.push(total);
+ y1.push(-1*count);
+ seek=seek+total-hold;
+ hold=0;
+ x2.push(total);
+ y2.push(-1*count);
+ x2.push(0);
+ y2.push(-1*count);
+ 
+ plot2.push(0);
+ y3.push(-1*count);
+ ++count;
+ if(store==-1)
+ store=arr.length;
+ for(a1=0;a1<store;++a1){
+ plot2.push(arr[a1]);
+ y3.push(-1*count);
+ ++count; 
+ seek=seek+Math.abs(hold-arr[a1]);
+ hold=arr[a1]; 
+ }
+ 
+ }
+
+ 
+
+ console.log(seek);
+ console.log(plot);
+ console.log(x2);
+ console.log(plot2);
+ plotthe("Circular SCAN",plot,plot2);
+ //console.log(y1);
+ return seek;
+ }
+
+function look(arr,cur,total,pre){
+ var plot=[];
+ var y1=[];
+ var seek=0;
+ plot.push(cur);
+ arr.sort(function(a, b){return a-b});
+ if(cur<=pre){
+ var store=-1,hold=cur;
+ for(a1=0;a1<arr.length;++a1){if(arr[a1]<=cur){store=a1;}}
+ var count=1;
+ for(a1=store;a1>=0&&store!=-1;--a1){
+ plot.push(arr[a1]);
+ y1.push(-1*count);
+ ++count;
+ seek=seek+Math.abs(hold-arr[a1]);
+ hold=arr[a1];
+ }
+ 
+ for(a1=store+1;a1<arr.length;++a1){
+ plot.push(arr[a1]);
+ y1.push(-1*count);
+ ++count; 
+ seek=seek+Math.abs(hold-arr[a1]);
+ hold=arr[a1]; 
+ }
+ }
+ else{
+ var store=-1,hold=cur;
+ for(a1=0;a1<arr.length;++a1){if(arr[a1]>=cur){store=a1;break}}
+ var count=1;
+ for(a1=store;a1<arr.length&&store!=-1;++a1){
+ plot.push(arr[a1]);
+ y1.push(-1*count);
+ ++count; 
+ seek=seek+Math.abs(hold-arr[a1]);
+ hold=arr[a1]; 
+ }
+ if(store==-1)
+ store=arr.length-1;
+ for(a1=store-1;a1>=0;--a1){
+ plot.push(arr[a1]);
+ y1.push(-1*count);
+ ++count;
+ seek=seek+Math.abs(hold-arr[a1]);
+ hold=arr[a1];
+ }
+ 
+ }
+ console.log(plot);
+ plotthe("LOOK",plot);
+ //console.log(y1);
+ return seek;
+ }
+
+
+
+ 
+function clook(arr,cur,total,pre){
+ var plot=[],x2=[],plot2=[];
+ var y1=[],y2=[],y3=[];
+ var seek=0;
+ plot.push(cur);
+ arr.sort(function(a, b){return a-b});
+ if(cur<=pre){
+ var store=-1,hold=cur;
+ for(a1=0;a1<arr.length;++a1){if(arr[a1]<=cur){store=a1;}}
+ var count=1;
+ for(a1=store;a1>=0&&store!=-1;--a1){
+ plot.push(arr[a1]);
+ y1.push(-1*count);
+ ++count;
+ seek=seek+Math.abs(hold-arr[a1]);
+ hold=arr[a1];
+ }
+ 
+ x2.push(hold);
+ y2.push(-1*(count-1));
+ x2.push(arr[arr.length-1]);
+ y2.push(-1*(count-1));
+ plot2.push(arr[arr.length-1]);
+ y3.push(-1*(count-1));
+ 
+ hold=arr[arr.length-1];
+ for(a1=arr.length-2;a1>store;--a1){
+ plot2.push(arr[a1]);
+ y3.push(-1*count);
+ ++count; 
+ seek=seek+Math.abs(hold-arr[a1]);
+ hold=arr[a1]; 
+ }
+ }
+ else{
+ var store=-1,hold=cur;
+ for(a1=0;a1<arr.length;++a1){if(arr[a1]>=cur){store=a1;break;}}
+ var count=1;
+ for(a1=store;a1<arr.length&&store!=-1;++a1){
+ plot.push(arr[a1]);
+ y1.push(-1*count);
+ ++count;
+ seek=seek+Math.abs(hold-arr[a1]);
+ hold=arr[a1];
+ }
+ 
+ x2.push(hold);
+ y2.push(-1*(count-1));
+ x2.push(arr[0]);
+ y2.push(-1*(count-1));
+ 
+ plot2.push(arr[0]);
+ y3.push(-1*(count-1));
+ 
+ hold=arr[0];
+ if(store==-1)
+ store=arr.length;
+ for(a1=1;a1<store;++a1){
+ plot2.push(arr[a1]);
+ y3.push(-1*count);
+ ++count; 
+ seek=seek+Math.abs(hold-arr[a1]);
+ hold=arr[a1]; 
+ }
+ 
+ }
+
+
+
+ console.log(seek);
+ console.log(plot);
+ console.log(x2);
+ console.log(plot2);
+ plotthe("Circular LOOK",plot,plot2);
+ //console.log(y1);
+ return seek;
+ }
+
+
+
+
+
+</script>
+
+
+</html>

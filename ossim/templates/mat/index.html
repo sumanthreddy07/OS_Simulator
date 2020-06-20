@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>
+        Memory Allocation Techniques
+    </title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+<body  style="background-image: url('https://i.pinimg.com/originals/fe/3b/67/fe3b67cf61001eb2d267e50c253a330c.jpg');background-size:cover">
+<div class="container" style="background-color: white;opacity: 0.8;margin-top:100px;" >
+    <div id="top-content" style="padding-top: 25px">
+        <h1 id="page-heading" align="center">
+           <b style="color:#FF6F00;"> Memory Management Techniques </b>
+        </h1>
+    </div>
+    <div id="middle-content" style="margin-top:15px;padding-bottom:40px" align="center">
+        <br>
+        <div class="row">
+            
+            <div class="col-sm-4" align="center" style="height:300px; margin-left:140px;margin-top:10px;background-color: black">
+                <a href="{% url 'mat:mat-get-data' %}" >
+                <div style="padding-top: 100px">
+                    <b style="color: white;font-size:50px;">MFT</b>
+                </div>
+                </a>
+            </div>
+            <div class="col-sm-4" align="center"  style="height:300px; margin-left:100px;margin-top:10px;background-color: black;float: right">
+                <a href="{% url 'mat:mvt-get-data' %}">
+                <div style="padding-top: 100px">
+                    <b style="color: white;font-size:50px;">MVT</b>
+                </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<br>
+	<div class="container-fluid" style="padding:0px 20px 20px 0px;margin-bottom: 40px">
+		<a href="/login/desktop">
+			<button type="button" class="btn btn-primary"  style="float:right">Go to Desktop</button>
+		</a>
+	</div>
+</html>

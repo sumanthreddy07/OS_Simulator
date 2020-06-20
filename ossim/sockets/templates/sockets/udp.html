@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+{% load static %}
+<style>
+button {
+  background-color: #ff9999;
+  color: white;
+  font-size: 15px;
+  font-weight: bold;
+  border: 2px solid #ff9999;
+
+}
+g{
+  color:white;
+}
+
+
+
+
+body{
+  background-color:#C594C5;
+}
+</style>
+
+<link href='https://fonts.googleapis.com/css?family=Montserrat:700' rel='stylesheet' type='text/css'>
+<title >UDP</title>
+<body style="background-color:#C594C5;">
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+  <div class="container-fluid">
+    <center ><h1  style= "color:white;font-family: 'Montserrat', Helvetica, sans-serif;">UDP socket programming</h1>
+      <br/><br/>
+    </center>
+    <button id = "Serv_socket" class="btn btn-primary" type ="button", onclick ="sersocket()", style ="margin-left:430px;height:25px;width:125px;line-height:1; background-color:#f44336;border:#f44336;">Server Socket()</button>
+    <button id = "Client_socket" class="btn btn-primary" type ="button", onclick ="clisocket()", style ="margin-left:170px;height:25px;width:125px;line-height:1; background-color:#f44336;border:#f44336;">Client Socket()</button>
+    <br/><br/>
+    <button id  = "bind" class="btn btn-primary" type ="button", onclick ="bind()", style ="margin-left:430px;height:25px;width:125px;line-height:1" disabled>Bind()</button>
+      <br/><br/>
+    <button id ="move" class="btn btn-primary" type ="button", onclick ="myMove()", style ="margin-left:430px;height:25px;width:125px;line-height:1" disabled>SendtoClient()</button>
+    <button id ="move2" class="btn btn-primary" type ="button", onclick ="myMove2()", style ="margin-left:170px;height:25px;width:125px;line-height:1" disabled>SendtoServer()</button>
+    <br/><br/>
+    <button id ="close" class="btn btn-primary" type ="button", onclick ="closee()", style ="margin-left:583px;height:25px;width:125px;line-height:1"disabled >Close()</button>
+
+
+
+
+
+
+<br/><br/>
+    <div class = "TERM">
+    <textarea rows="12" cols="50" disabled = "True" id = "servertext" style="margin-left:170px;border-radius:15px;">
+      Waiting for Socket call
+    </textarea>
+    <textarea rows="12" cols="50" disabled = "True" id = "clienttext" style="margin-left:80px;border-radius:15px;">
+      Waiting for Socket call
+    </textarea>
+
+    <br/><br/>
+
+  </div>
+
+
+    <script type ="text/javascript">
+    window.alert("Click on socket call buttons to perform the respective functions")
+    var numb1 = 0;
+    function sersocket()
+    {
+      document.getElementById("bind").style.backgroundColor = "#f44336";
+      document.getElementById("bind").style.border = "#f44336";
+      document.getElementById("close").style.backgroundColor = "#f44336";
+      document.getElementById("close").style.border = "#f44336";
+document.getElementById("Serv_socket").disabled = true;
+document.getElementById("Serv_socket").style.backgroundColor = "#ff9999";
+document.getElementById("Serv_socket").style.border = "#ff9999";
+      document.getElementById("servertext").value="      Waiting to Bind";
+      document.getElementById("bind").disabled = false;
+      document.getElementById("close").disabled = false;
+    }
+
+    function clisocket()
+    {
+      numb1=1;
+      document.getElementById("close").style.backgroundColor = "#f44336";
+      document.getElementById("close").style.border = "#f44336";
+      document.getElementById("Client_socket").disabled = true;
+      document.getElementById("Client_socket").style.backgroundColor = "#ff9999";
+      document.getElementById("Client_socket").style.border = "#ff9999";
+      document.getElementById("clienttext").value="      Waiting for server to bind";
+    }
+    function closee()
+    {
+      numb1 = 0;
+      document.getElementById("Serv_socket").style.backgroundColor = "#f44336";
+      document.getElementById("Serv_socket").style.border = "#f44336";
+      document.getElementById("Serv_socket").disabled  = false;
+      document.getElementById("Client_socket").style.backgroundColor = "#f44336";
+      document.getElementById("Client_socket").style.border = "#f44336";
+      document.getElementById("Client_socket").disabled  = false;
+      document.getElementById("close").disabled  = true;
+      document.getElementById("bind").disabled = true;
+
+        document.getElementById("move").disabled = true;
+        document.getElementById("move2").disabled = true;
+      document.getElementById("servertext").value="      Waiting for Socket Call";
+      document.getElementById("servertext").disabled = true;
+      document.getElementById("clienttext").disabled = true;
+      document.getElementById("clienttext").value="      Waiting for Socket Call";
+      document.getElementById("servertext").style.backgroundColor = '';
+      document.getElementById("clienttext").style.backgroundColor = '';
+      document.getElementById("servertext").style.color = '';
+      document.getElementById("clienttext").style.color = '';
+      document.getElementById("bind").style.backgroundColor = "";
+      document.getElementById("bind").style.border = "";
+      document.getElementById("move").style.backgroundColor = "";
+      document.getElementById("move").style.border = "";
+      document.getElementById("move2").style.backgroundColor = "";
+      document.getElementById("move2").style.border = "";
+      document.getElementById("close").style.backgroundColor = "";
+      document.getElementById("close").style.border = "";
+
+    }
+    function bind()
+    {
+      if(numb1==1)
+      {document.getElementById("bind").style.backgroundColor = "";
+      document.getElementById("bind").style.border = "";
+      document.getElementById("bind").disabled = true;
+      document.getElementById("clienttext").disabled = false;
+      document.getElementById("servertext").style.backgroundColor = 'black';
+      document.getElementById("clienttext").style.backgroundColor = 'black';
+      document.getElementById("servertext").style.color = 'green';
+      document.getElementById("clienttext").style.color = 'green';
+      document.getElementById("clienttext").value="";
+      document.getElementById("servertext").value="";
+      document.getElementById("clienttext").placeholder = "Send message to Server";
+      document.getElementById("servertext").placeholder = "Send message to Client";
+      document.getElementById("servertext").disabled = false;
+      document.getElementById("move").disabled = false;
+      document.getElementById("move2").disabled = false;
+      document.getElementById("move").style.backgroundColor = "#f44336";
+      document.getElementById("move").style.border = "#f44336";
+      document.getElementById("move2").style.backgroundColor = "#f44336";
+      document.getElementById("move2").style.border = "#f44336";
+      alert('Client Server terminal chat is now enabled');}
+      else {
+        document.getElementById("servertext").value="      Waiting for client socketcall";
+      }
+
+    }
+
+
+    function accept()
+    {
+      if(numb2==1)
+      {document.getElementById("accept").style.backgroundColor = "";
+      document.getElementById("accept").style.border = "";
+      document.getElementById("accept").disabled = true;
+      document.getElementById("clienttext").disabled = false;
+      document.getElementById("servertext").style.backgroundColor = 'black';
+      document.getElementById("clienttext").style.backgroundColor = 'black';
+      document.getElementById("servertext").style.color = 'green';
+      document.getElementById("clienttext").style.color = 'green';
+      document.getElementById("clienttext").value="";
+      document.getElementById("servertext").value="";
+      document.getElementById("clienttext").placeholder = "Send message to Server";
+      document.getElementById("servertext").placeholder = "Send message to Client";
+      document.getElementById("servertext").disabled = false;
+      document.getElementById("move").disabled = false;
+      document.getElementById("move2").disabled = false;
+      document.getElementById("move").style.backgroundColor = "#f44336";
+      document.getElementById("move").style.border = "#f44336";
+      document.getElementById("move2").style.backgroundColor = "#f44336";
+      document.getElementById("move2").style.border = "#f44336";
+  }
+      else {
+        document.getElementById("servertext").value="      Waiting for client to connect to server";
+      }
+    }
+
+    function myMove() {
+      document.getElementById("clienttext").value = document.getElementById("servertext").value;
+      document.getElementById("servertext").value = "";
+
+    }
+
+    function myMove2() {
+      document.getElementById("servertext").value = document.getElementById("clienttext").value;
+      document.getElementById("clienttext").value = "";
+
+    }
+
+
+
+    </script>
+  </div>
+</body>

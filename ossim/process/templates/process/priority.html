@@ -1,0 +1,144 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+    Process
+  </title>
+  <script type='text/javascript' src='{% static 'js/inputpri.js' %}'></script>
+  <script type='text/javascript' src='{% static 'js/displaypri4.js' %}'></script>
+  <link rel="stylesheet" href='{% static 'css/demo1.css' %}'>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+
+<body  style="background-image: url('https://i.pinimg.com/originals/9d/4d/07/9d4d07ca7d591bb3cd3d9f4df2624bbf.jpg"  >
+    <div class="" style="opacity:0.8"><h1 style="text-align:center;text-align: center;text-shadow: 1px 1px blue">
+      <b style="color:white">Priority Process Scheduling</b>
+      </h1>
+    </div>
+    <div class="container-fluid">
+      <div class="col-lg-6">
+        <div class="container">
+
+          <div id="output" style="background-color:white">
+          </div>
+          <br>
+          <div class="container-fluid" style="color:white">
+              <div class="col-lg-2">
+                <b >Enter arrival time:</b>
+                <input style="width:150px;"id="newarrivaltime" class="form-control" type="text" value=""></input>
+              </div>
+              <div  class="col-lg-2">
+                <b>Enter burst time:</b>
+                <input style="width:150px;" id="newbursttime" class="form-control" type="text" value=""></input>
+              </div>
+              <div  class="col-lg-2">
+                <b>Enter Priority:</b>
+                <br>
+                <input style="width:150px;" id="newPriority" class="form-control" type="text" value=""></input>
+                
+              </div>
+              <div  class="col-lg-3" style="color:white;bottom:10px;padding-top: 5px">
+                <label for="sel1" style="">Select Algorithm to be used :</label>
+                  <br>
+                <select class="form-control" id="sel1" style="width:200px;background-color: grey;color:white">
+                  <option>Preemptive Priority(PP)</option>
+                  <option>Non-preemptive Priority(NPP)</option>
+                </select>
+              </div>
+              <div class="col-lg-1" style="padding-top:15px">
+                <button class="btn btn-danger" onclick="addToList()" style="float:left;margin-left:10px;color:white;">Add</button>
+              </div>
+          </div>
+
+
+        </div>
+
+        <div class="" style="height:50px;padding: 10px">
+        	<button style="float: right;background-color: #33CC00;color: white" id="sender" class="btn btn-primary">Send the entire data</button>
+        </div>
+      </div>
+      <div class="col-lg-6"></div>
+    </div>
+
+    <div class="container" style="width:50%;float:left;"">
+      <div class="" style="background-color: white;opacity:0.8;margin-bottom: 20px;padding: 5px">
+      	<h3><b>Operations Taking Place</b></h3>
+      </div>
+      <div id="comments" class="" style="background-color: white;opacity:0.8;margin-bottom: 20px;padding: 5px">
+      </div>
+    </div>
+    <div class="container" style="width:50%;float:right; ">
+      <div class=""  style="background-color: white;opacity:0.9;margin-bottom: 20px;padding: 5px">
+      	<h3><b>Table</b></h3>
+      </div>
+      <div class="" style="background-color: white;opacity:0.9;margin-bottom: 20px;padding: 5px">
+        <table id="ptab" class="table table-bordered">
+          <thead>
+       	    <tr id="thead">
+             	<th>PNO.</th>
+              <th>Priority</th>
+            	<th>Arrival time</th>
+            	<th>Burst time</th>
+            	<th>Completion time</th>
+            	<th>Waiting time</th>
+            	<th>Turn-around time</th>
+            </tr>
+            <tbody id="ptable">
+
+            </tbody>
+          </thead>
+        </table>
+      </div>
+    </div>
+    <hr>
+    <br><br>
+
+    <div class="container" style="background-color: white;opacity:0.8;margin: 300px 0px 0px 100px;">
+        <div class="" style="">
+          <h3>
+            <b>Gantt chart</b>
+          </h3>
+        </div>
+        <div id="gantth"></div>
+        <br>
+        <div id="outer-div">
+        </div>
+        <br>
+    </div>
+</body>
+</html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+    $('#sender').click(function(){
+    var text = JSON.stringify(stuff);
+    var alg = JSON.stringify($("#sel1").val().split("(")[1].split(")")[0])
+    //console.log(text);
+    $.post('/process/gateway/',{value:text, algo:alg}, function(result){
+      sequence = result["gantt"];
+      a = result["table"]
+      avgwt =0;
+      avgtat =0;
+      for(i=0;i<a.length;++i){
+        avgwt += a[i].wt;
+        avgtat += a[i].tat;
+      }
+      total = sequence.length;
+      pixel = 0;
+      i = 0;
+      $('#outer-div,#comments,#ptable,#gantth').empty();
+      // $('#thead').append('<th>PNO.</th> <th>Arrival time</th>  <th>Burst time</th>  <th>Completion time</th>  <th>Waiting time</th>  <th>Turn-around time</th>');
+      totalTime = sequence[total-1].stop;
+      pixel = parseInt(800/totalTime);
+      containerWidth = pixel*totalTime + 2;
+      $('#outer-div').css('width',containerWidth+'px');
+      displayBlock(i);
+    });
+    });
+</script>

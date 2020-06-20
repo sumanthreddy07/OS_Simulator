@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>File Allocation- Home</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+<!--===============================================================================================-->
+	<link rel="icon" type="image/png" href="/static/images/icons/favicon.ico"/>
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/vendor/bootstrap/css/bootstrap.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/vendor/animate/animate.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/vendor/css-hamburgers/hamburgers.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/vendor/select2/select2.min.css">
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="/static/css/util1.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/main1.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/select1.css">
+	<link rel="stylesheet" type="text/css" href="/static/css/select21.css">
+<!--===============================================================================================-->
+
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+    // to fade in on page load
+    //$("body").css("display", "none");
+    $("body").fadeIn(100); 
+    // to fade out before redirect
+    $('a').click(function(e){
+        redirect = $(this).attr('href');
+        e.preventDefault();
+        $('body').fadeOut(100, function(){
+            document.location.href = redirect
+        });
+    });
+})
+		</script>
+
+</head>
+<body>
+
+
+	<div class="container-contact100" style="background-image: url('/static/images/bg-01.jpg');">
+		<div class="wrap-contact100">
+			<form class="contact100-form validate-form">
+				<span class="contact100-form-title">
+					File Allocation
+				</span>
+
+
+				<div class="wrap-input100 input100-select bg1">
+					<span class="label-input100">Choose an Algorithm</span>
+					<div>
+						<select class="js-select2" name="type" onchange="javascript:location.href = this.value;">
+							<option>Please Choose</option>
+							<option value = "/file_allocation/contiguous">Contiguous File Allocation</option>
+							<option value = "/file_allocation/linked">Linked File Allocation</option>
+							<option value = "/file_allocation/indexed">Indexed File Allocation</option>
+						</select>
+						<div class="dropDownSelect2"></div>
+						<div class="container-contact100-form-btn" style="width:800px; margin:0 auto;">
+						<a href = "/login/desktop/">
+							Go back Home</a>
+						
+				</div>
+					</div>
+				</div>
+
+	        
+		</div>
+			</form>
+		</div>
+
+		<span class="contact100-more">
+				Made with love
+		</span>
+	</div>
+
+
+
+	<div id="dropDownSelect1"></div>
+
+<!--===============================================================================================-->
+	<script src="/static/vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/vendor/bootstrap/js/popper.js"></script>
+	<script src="/static/vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="/static/js/main.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-23581568-13');
+</script>
+
+</body>
+</html>

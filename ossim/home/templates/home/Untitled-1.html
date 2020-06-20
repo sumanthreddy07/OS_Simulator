@@ -1,0 +1,788 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+ <meta http-equiv="X-UA-Compatible" content="IE=9"/>
+
+    {% load static %}
+                <link rel="stylesheet" type="text/css" href="{% static 'home/assets/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'home/assets/css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'home/assets/css/fonts.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'home/assets/css/style.css' %}" />
+    <link rel="stylesheet" href="bower_components/xterm.js/dist/xterm.css" />
+    <script src="bower_components/xterm.js/dist/xterm.js"></script>
+<style>
+    #icon1
+    {
+      position:  absolute;
+      left: 80px;
+
+      top: 150px; /* set these so Chrome doesn't return 'auto' from getComputedStyle */
+       width: 100px;
+        height:100px;
+      background: rgba(255,255,255,0.66);
+      border: 2px  solid rgba(0,0,0,0.5);
+      border-radius: 4px; padding: 8px;
+    }
+
+
+     #icon2
+    {
+      position:  absolute;
+      left: 190px;
+
+      top: 150px; /* set these so Chrome doesn't return 'auto' from getComputedStyle */
+  width: 100px;
+        height:100px;
+      background: rgba(255,255,255,0.66);
+      border: 2px  solid rgba(0,0,0,0.5);
+      border-radius: 4px; padding: 8px;
+    }
+
+
+         #icon3
+    {
+      position:  absolute;
+      left: 300px;
+
+      top: 150px; /* set these so Chrome doesn't return 'auto' from getComputedStyle */
+        width: 100px;
+        height:100px;
+      background: rgba(255,255,255,0.66);
+      border: 2px  solid rgba(0,0,0,0.5);
+      border-radius: 4px; padding: 8px;
+    }
+
+
+         #icon4
+    {
+      position:  absolute;
+      left: 410px;
+
+      top: 150px; /* set these so Chrome doesn't return 'auto' from getComputedStyle */
+     width: 100px;
+        height:100px;
+      background: rgba(255,255,255,0.66);
+      border: 2px  solid rgba(0,0,0,0.5);
+      border-radius: 4px; padding: 8px;
+    }
+
+              #icon5
+    {
+      position:  absolute;
+      left: 520px;
+
+      top: 150px; /* set these so Chrome doesn't return 'auto' from getComputedStyle */
+        width: 100px;
+        height:100px;
+      background: rgba(255,255,255,0.66);
+      border: 2px  solid rgba(0,0,0,0.5);
+      border-radius: 4px; padding: 8px;
+    }
+
+    #icon6
+    {
+      position:  absolute;
+      left: 630px;
+
+      top: 150px; /* set these so Chrome doesn't return 'auto' from getComputedStyle */
+         width: 100px;
+        height:100px;
+      background: rgba(255,255,255,0.66);
+      border: 2px  solid rgba(0,0,0,0.5);
+      border-radius: 4px; padding: 8px;
+    }
+
+
+     #icon7
+    {
+      position:  absolute;
+      left: 740px;
+
+      top: 150px; /* set these so Chrome doesn't return 'auto' from getComputedStyle */
+        width: 100px;
+        height:100px;
+      background: rgba(255,255,255,0.66);
+      border: 2px  solid rgba(0,0,0,0.5);
+      border-radius: 4px; padding: 8px;
+    }
+
+
+         #icon8
+    {
+      position:  absolute;
+      left: 850px;
+
+      top: 150px; /* set these so Chrome doesn't return 'auto' from getComputedStyle */
+     width: 100px;
+        height:100px;
+      background: rgba(255,255,255,0.66);
+      border: 2px  solid rgba(0,0,0,0.5);
+      border-radius: 4px; padding: 8px;
+    }
+
+
+	.icon_names{
+
+		font-size: 13px;
+        color: black;
+        text-align: center;
+
+	}
+
+.navigationbar {
+  overflow: hidden;
+  background-color: 	#313131 ;
+  z-index: 1;
+  position: fixed;
+  left: 0;
+  width: 3.5%;
+  height: 100%;
+}
+
+.navigationbar a {
+  float: right;
+  display: block;
+  color: #f2f2f2;
+  text-align: center;
+  padding-right: 16px;
+  text-decoration: none;
+
+}
+
+
+
+.navigationbar a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+@import url(//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css);
+
+@import url(https://fonts.googleapis.com/css?family=Titillium+Web:300);
+.fa-2x {
+font-size: 2em;
+}
+.fa {
+position: relative;
+display: table-cell;
+width: 60px;
+height: 36px;
+text-align: center;
+vertical-align: middle;
+font-size:20px;
+}
+
+
+.main-menu:hover,nav.main-menu.expanded {
+width:250px;
+overflow:visible;
+}
+
+.main-menu {
+background:#212121;
+border-right:1px solid #e5e5e5;
+position:absolute;
+top:0;
+bottom:0;
+height:100%;
+left:0;
+width:60px;
+overflow:hidden;
+-webkit-transition:width .05s linear;
+transition:width .05s linear;
+-webkit-transform:translateZ(0) scale(1,1);
+z-index:1000;
+}
+
+.main-menu>ul {
+margin:7px 0;
+}
+
+.main-menu li {
+position:relative;
+display:block;
+width:250px;
+}
+
+.main-menu li>a {
+position:relative;
+display:table;
+border-collapse:collapse;
+border-spacing:0;
+color:#999;
+ font-family: arial;
+font-size: 14px;
+text-decoration:none;
+-webkit-transform:translateZ(0) scale(1,1);
+-webkit-transition:all .1s linear;
+transition:all .1s linear;
+  
+}
+
+.main-menu .nav-icon {
+position:relative;
+display:table-cell;
+width:60px;
+height:36px;
+text-align:center;
+vertical-align:middle;
+font-size:18px;
+}
+
+.main-menu .nav-text {
+position:relative;
+display:table-cell;
+vertical-align:middle;
+width:190px;
+  font-family: 'Titillium Web', sans-serif;
+  font-size: 18px;
+}
+
+.main-menu>ul.logout {
+position:absolute;
+left:0;
+bottom:0;
+}
+
+.no-touch .scrollable.hover {
+overflow-y:hidden;
+}
+
+.no-touch .scrollable.hover:hover {
+overflow-y:auto;
+overflow:visible;
+}
+
+a:hover,a:focus {
+text-decoration:none;
+}
+
+nav {
+-webkit-user-select:none;
+-moz-user-select:none;
+-ms-user-select:none;
+-o-user-select:none;
+user-select:none;
+}
+
+nav ul,nav li {
+outline:0;
+margin:0;
+padding:0;
+}
+.main-menu li:hover>a,nav.main-menu li.active>a,.dropdown-menu>li>a:hover,.dropdown-menu>li>a:focus,.dropdown-menu>.active>a,.dropdown-menu>.active>a:hover,.dropdown-menu>.active>a:focus,.no-touch .dashboard-page nav.dashboard-menu ul li:hover a,.dashboard-page nav.dashboard-menu ul li.active a {
+color:#fff;
+
+}
+.area {
+float: left;
+background: #e2e2e2;
+width: 100%;
+height: 100%;
+}
+@font-face {
+  font-family: 'Titillium Web';
+  font-style: normal;
+  font-weight: 300;
+  src: local('Titillium WebLight'), local('TitilliumWeb-Light'), url(http://themes.googleusercontent.com/static/fonts/titilliumweb/v2/anMUvcNT0H1YN4FII8wpr24bNCNEoFTpS2BTjF6FB5E.woff) format('woff');
+}
+
+
+
+    </style>
+    <script>
+
+
+    function drag_start(event)
+    {
+    var style = window.getComputedStyle(event.target, null);
+    var str = (parseInt(style.getPropertyValue("left")) - event.clientX) + ',' + (parseInt(style.getPropertyValue("top")) - event.clientY)+ ',' + event.target.id;
+    event.dataTransfer.setData("Text",str);
+    }
+
+    function drop(event)
+    {
+
+    var offset = event.dataTransfer.getData("Text").split(',');
+    var dm = document.getElementById(offset[2]);
+    dm.style.left = (event.clientX + parseInt(offset[0],10)) + 'px';
+    dm.style.top = (event.clientY + parseInt(offset[1],10)) + 'px';
+    event.preventDefault();
+    return false;
+    }
+
+    function drag_over(event)
+    {
+    event.preventDefault();
+    return false;
+    }
+    document.getElementById('demo').innerHTML = Date();
+
+
+
+    </script>
+
+<title>Desktop</title>
+
+</head>
+<body>
+	<div id="allContent">
+
+		<!-- All Contents in Desktop , File System  -->
+
+		<div id='desktopContent'>
+
+		<!--	<div class="nav"   >
+				<div class="left">
+					Desktop
+				</div>
+
+				<div class="right">
+
+					<span class="time"></span>
+					<span class="am-pm"></span>
+			<a	href = "/">	<i class="fa fa-power-off fa-fw" onclick="logOut()"></i></a>
+				</div>
+			</div> -->
+
+			<!-- Launching File Explorer , Synchronization Example , Calculator -->
+
+<!--
+			<div class="luncher" >
+				<span data-toggle="tooltip" title="Files" style="cursor:pointer;">
+		   		 <i class="fa fa-folder" id="folder"></i>
+			  	</span>
+
+				<span data-toggle="tooltip" title="Synchronization Example" style="cursor:pointer;">
+				<i class="fa fa-cog" onclick="navigateTo()"></i>
+				</span>
+
+				<span data-toggle='tooltip' title="Calculator" style="cursor:pointer;">
+
+				<button id='createFile' type='button' data-toggle='modal' data-target='.calculator' style="background-color:transparent; border:0;"><i class="fa fa-calculator" aria-hidden="true" onclick="clearCalc()"></i></button>
+				</span>
+
+
+
+
+
+      </div>   -->
+      <a class="link1"  href="{% url 'booting:powerdown' %}">
+        <img src='../../static/home/assets/images/download.png'  width=40px style="float: right; opacity:0.5;">
+      </a>
+  
+      
+      
+      <nav class="main-menu">
+        <ul>
+            <li>
+                <a href="#">
+                    <i class="fa fa-home fa-2x"></i>
+                    <span class="nav-text">
+                        Dashboard
+                    </span>
+                </a>
+              
+            </li>
+
+            <li>
+              <a href="#">
+                <i class="fa fa-folder" id="folder" style=" width:60px; height: 40px;padding: 4px;margin:4px"></i>
+                <span class="nav-text">
+                  Explorer
+              </span>
+              </a>
+            </li>
+
+            <li>
+              <a href="#">
+                <i id='createFile' class="fa fa-calculator" aria-hidden="true" data-toggle='modal' data-target='.calculator' onclick="clearCalc()" style="width:60px; height: 40px;padding: 4px;margin:4px"></i>
+                <span class="nav-text">
+                  Calculator
+              </span>
+              </a>
+            </li>
+            
+
+        <ul class="logout">
+            <li>
+               <a href="#">
+                     <i class="fa fa-power-off fa-2x"></i>
+                    <span class="nav-text">
+                        Logout
+                    </span>
+                </a>
+            </li>  
+        </ul>
+    </nav>
+      <!--div class="navigationbar nav" style="margin: 0px;padding: 0px">
+        
+     
+        <a>
+          <div>
+            <span data-toggle="tooltip" title="Files" style="cursor:pointer; vertical-align: middle;">
+              <i class="fa fa-folder" id="folder" style=" width:60px; height: 40px; background-color:  #14A5F4; border:1px solid darkblue;padding: 4px;margin:4px"></i>
+            </span>
+
+			    	<span data-toggle='tooltip' title="Calculator" style="cursor:pointer;" >
+              <i id='createFile' class="fa fa-calculator" aria-hidden="true" data-toggle='modal' data-target='.calculator' onclick="clearCalc()" style="width:60px; height: 40px; border: 1px solid darkblue; background-color:  #14A5F4;padding: 4px;margin:4px"></i>
+				    </span>
+
+            <span data-toggle="tooltip" title="Terminal" style="cursor:pointer;">
+              <a href="terminal">
+                <i class="fa fa-terminal" style=" background-color:  #14A5F4;border: 1px solid darkblue;padding: 4px;margin:4px; width:60px; height: 40px;" onclick=""></i>
+              </a>
+            </span>
+
+          </div>
+        </a>
+
+      </div>
+
+      <div align=center style="height: 40px; background-color: #313131;">
+        
+        <b><span id="time" style="color: white; font-size: 30px;" ></span>
+        <span id="am-pm" style="color: white; font-size: 20px;"></span></b>
+      
+      </div>
+
+
+          <!--  <div ondragover="drag_over(event)" ondrop="drop(event)" style="border: 1px solid ;background: transparent;height:100vh;width:100%"></div>
+-->
+			<!-- Calculator -->
+
+			<div class='modal fade calculator' tabindex='-1' role='dialog' aria-labelledby='mySmallModalLabel'>
+				  <div class='modal-dialog modal-md' role='document'>
+				    <div class='modal-content'>
+				      <div class='modal-header'>
+				        <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+				         <h4 class='modal-title'>Calculator</h4>
+				      </div>
+				      <div id = "calculatorBody" class='modal-body'>
+				        <div>
+				          <center>
+				          <label id="answer" class = "num">0</label>
+				          </br>
+				            <input type="text" id="expressionArea" value="0" class = "txta" onchange="change()" autofocus>
+				          </br>
+				            <button onclick="one()" class = "num" >1</button>
+				            <button onclick="two()" class = "num" >2</button>
+				            <button onclick="three()" class = "num" >3</button>
+				            <button onclick="plus()" class = "num" style = "margin : 0px 2px 0px 15px">+</button>
+				            <button onclick="minus()" class = "num" >-</button>
+				          </br>
+				            <button onclick="four()" class = "num">4</button>
+				            <button onclick="five()" class = "num">5</button>
+				            <button onclick="six()" class = "num">6</button>
+				            <button onclick="mul()" class = "num" style = "margin : 0px 2px 0px 15px">*</button>
+				            <button onclick="power()" class = "num">^</button>
+				          </br>
+				            <button onclick="seven()" class = "num" >7</button>
+				            <button onclick="eight()" class = "num" >8</button>
+				            <button onclick="nine()" class = "num" >9</button>
+				            <button onclick="divide()" class = "num" style = "margin : 0px 2px 0px 15px">/</button>
+				            <button onclick="mod()" class = "num" >%</button>
+				          </br>
+				            <button onclick="zero()" class = "num">0</button>
+				            <button onclick="lp()" class = "num">(</button>
+				            <button onclick="rp()" class = "num">)</button>
+				            <button onclick="reset()" class = "num" style = "margin : 0px 2px 0px 15px">AC</button>
+				            <button onclick="buttonClicked()" class = "num">=</button>
+				          </center>
+				        </div>
+				        <div id = "cf" class='modal-footer'>
+				          <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+				        </div>
+				     </div>
+				    </div>
+				  </div>
+				</div>
+
+
+			<div class="desktop"  ondragover="drag_over(event)" ondrop="drop(event)">
+				<a href="{% url 'page:demo'%}">
+					<div id="icon1" draggable="true" ondragstart="drag_start(event)">
+                    <img border="0" alt="page" src="https://www.tldp.org/LDP/tlk/mm/free-area.gif" height="50px" width="80px" >
+					<p class="icon_names">Page Replacement</p>
+					</div>
+                </a>
+
+			</div>
+
+			<div class="desktop"  ondragover="drag_over(event)" ondrop="drop(event)">
+				<a href="{% url 'disk:home'%}">
+					<div id="icon2" draggable="true" ondragstart="drag_start(event)">
+                    <img border="0" alt="page" src="data:image/png;base64,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" height="50px" width="80px"  >
+					<p class="icon_names">Disk  Scheduling</p>
+					</div>
+                </a>
+
+			</div>
+
+
+            <div class="desktop"  ondragover="drag_over(event)" ondrop="drop(event)">
+				<a href="{% url 'deadlock:home'%}">
+					<div id="icon3" draggable="true" ondragstart="drag_start(event)">
+                    <img border="0" alt="page" src="http://fc04.deviantart.net/fs45/f/2009/073/7/0/Deadlock_T_Shirt_Logo_by_Scarzzurs.png" height="50px" width="80px" >
+					<p class="icon_names">Deadlock</p>
+					</div>
+                </a>
+
+			</div>
+
+
+            <div class="desktop"  ondragover="drag_over(event)" ondrop="drop(event)">
+				<a href="{% url 'file_alloc:home'%}">
+					<div id="icon4" draggable="true" ondragstart="drag_start(event)">
+                    <img border="0" alt="page" src="data:image/png;base64,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" height="50px" width="80px" >
+					<p class="icon_names">File Allocation</p>
+					</div>
+                </a>
+
+			</div>
+
+
+            <div class="desktop"  ondragover="drag_over(event)" ondrop="drop(event)">
+				<a href="{% url 'mat:home'%}">
+					<div id="icon5" draggable="true" ondragstart="drag_start(event)">
+                    <img border="0" alt="page" src="https://cs.nyu.edu/courses/spring05/G22.2250-001/lectures/figs/MVT.png" height="50px" width="80px"  >
+					<p  >Memory Allocation</p>
+					</div>
+                </a>
+
+			</div>
+
+            <div class="desktop"  ondragover="drag_over(event)" ondrop="drop(event)">
+				<a href="{% url 'process:index'%}">
+					<div id="icon6" draggable="true" ondragstart="drag_start(event)">
+                    <img border="0" alt="page" src="https://www.tutorialspoint.com/operating_system/images/queuing_diagram.jpg" height="50px" width="80px" >
+					<p class="icon_names">Process Scheduling</p>
+					</div>
+                </a>
+
+			</div>
+              <div class="desktop"  ondragover="drag_over(event)" ondrop="drop(event)">
+				<a href="{% url 'sockets:home'%}">
+					<div id="icon7" draggable="true" ondragstart="drag_start(event)">
+                    <img border="0" alt="page" src="https://i.pinimg.com/originals/a0/ec/65/a0ec6522138dadd458ef0c4104017176.jpg" height="50px" width="80px"  >
+					<p class="icon_names">Sockets</p>
+					</div>
+                </a>
+
+			</div>
+
+
+            <div class="desktop"  ondragover="drag_over(event)" ondrop="drop(event)">
+				<a href="{% url 'synchro:semaphores'%}">
+					<div id="icon8" draggable="true" ondragstart="drag_start(event)">
+                    <img border="0" alt="page" src="http://3.bp.blogspot.com/-EH1GDM8yYTA/UBVw2YeKeRI/AAAAAAAABpc/TA0kw1MeeFw/s1600/Mutex.jpg" height="50px" width="80px" >
+					<p class="icon_names">Synchronize</p>
+					</div>
+                </a>
+
+			</div>
+
+
+
+		</div>
+
+		<div id ='exploringContent' hidden>
+
+			<!-- Creating New File -->
+
+
+			<div class='modal fade newFile' tabindex='-1' role='dialog' aria-labelledby='mySmallModalLabel'>
+	            <div class='modal-dialog modal-sm' role='document'>
+	              <div class='modal-content'>
+	                <div class='modal-header'>
+		                <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+		                 <h4 class='modal-title'>Create New File</h4>
+	                </div>
+	                <div class='modal-body'>
+		                <div class='form-group'>
+		                    <label class='form-label'>File Name </label>
+		                    <input class='form-control create-file' id='file-name' type='text' autofocus >
+		                    <label class='form-label'>File Type </label>
+		                    <select class='form-control' id='file-type' onchange='showHideLink()' >
+		                      <option value='txt' >Text</option>
+		                      <option value='audio'>Audio</option>
+		                      <option value='video'>Video</option>
+		                    </select>
+		                </div>
+		                <div id='showHideLink' class='form-group' hidden>
+		                    <label class='form-label'>Link </label>
+		                  	<input class='form-control create-file' id='file-link' type='text' value='' >
+		                </div>
+		                <div class='modal-footer'>
+		                  <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+		                  <button type='button' class='btn btn-primary' class='close' data-dismiss='modal' aria-label='Close' onclick='creatingFile()'>Save changes</button>
+		                </div>
+		            </div>
+
+	              </div>
+            	</div>
+          	</div>
+
+          	<!-- Creating New Folder -->
+
+            <div class='modal fade newFolder' tabindex='-1' role='dialog' aria-labelledby='mySmallModalLabel'>
+              <div class='modal-dialog modal-sm' role='document'>
+                <div class='modal-content'>
+                  <div class='modal-header'>
+                    <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+                     <h4 class='modal-title'>Create New Folder</h4>
+                  </div>
+                  <div class='modal-body'>
+                    <div class='form-group'>
+                        <label class='form-label'>Folder Name </label>
+                        <input class='form-control create-folder' id='folder-name' type='text' autofocus >
+
+                    </div>
+
+                    <div class='modal-footer'>
+                      <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+                      <button type='button' class='btn btn-primary' class='close' data-dismiss='modal' aria-label='Close' onclick='creatingFolder()'>Save changes</button>
+                    </div>
+                </div>
+
+                </div>
+              </div>
+          	</div>
+
+
+          	<!-- Showing File Content -->
+
+
+          	 <div class='modal fade applications' tabindex='-1' role='dialog' aria-labelledby='mySmallModalLabel'>
+              <div class='modal-dialog modal-sm' role='document' id="apps">
+                <div class='modal-content'>
+                  <div class='modal-header'>
+                    <button type='button' class='close' data-dismiss='modal' aria-label='Close' onclick="closeApps()"><span aria-hidden='true'>&times;</span></button>
+                     <h4 class='modal-title' id="modalTitle"></h4>
+                  </div>
+                  <div class='modal-body' id="textEditor">
+                    <div class='form-group' id="modalBody">
+
+
+                    </div>
+
+                    <div class='modal-footer' >
+                      <button type='button' class='btn btn-default' data-dismiss='modal' onclick="closeApps()">Close</button>
+                      <button type='button' id="modalSave" onclick="saveChanges()" class='btn btn-primary' class='close' data-dismiss='modal' aria-label='Close'>Save changes</button>
+                    </div>
+                </div>
+
+                </div>
+              </div>
+          	</div>
+
+          	<button id='openApps' type='button' class='btn btn-primary' data-toggle='modal' data-target='.applications'></button>
+
+
+          	<!-- Renaming File or Folder -->
+
+
+          	<div class='modal fade rename' tabindex='-1' role='dialog' aria-labelledby='mySmallModalLabel'>
+	            <div class='modal-dialog modal-sm' role='document' >
+	              <div class='modal-content'>
+	                <div class='modal-header'>
+		                <button type='button' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>
+		                 <h4 class='modal-title'>Rename</h4>
+	                </div>
+	                <div class='modal-body' >
+		                <div class='form-group'>
+		                    <label class='form-label'>File Name </label>
+		                    <input class='form-control' id='file-rename' type='text' autofocus>
+		                </div>
+		                <div class='modal-footer'>
+		                  <button type='button' class='btn btn-default' data-dismiss='modal'>Close</button>
+		                  <button type='button' class='btn btn-primary' class='close' data-dismiss='modal' aria-label='Close' onclick='renamingFile()'>Save changes</button>
+		                </div>
+		            </div>
+
+	              </div>
+            	</div>
+          	</div>
+
+
+          	<!-- File Explorer -->
+
+
+            <div class='popup middle' id='fileExploring'>
+
+              <div id='explorer' class='width1020 element'>
+                <div id='header'>
+                  <h3 class='noselect'>Workspace Explorer</h3>
+                  <i class='material-icons noselect' onclick='closeRoot()';>&#xE5CD;</i>
+                  <div id='dir' class='middle'>
+                    <i class='material-icons' onclick="goBack()">&#xE5C4;</i>
+                    <hr>
+                    <a onclick="goHome()">
+                      <i class='material-icons' >&#xE88A;</i>
+                    </a>
+                    <div id='directory' class='top'></div>
+                  </div>
+                  <div id='view' class='noselect middle'>
+
+                  <i class='material-icons' title='Paste' onclick="onPaste()" style="display: none;" id="paste">&#xE14F;</i>
+              	 <button id='rename' type='button' class='btn btn-primary' data-toggle='modal' data-target='.rename'> <i class='material-icons' title='Rename' >text_format</i> </button>
+                  <i class='material-icons' title='Copy' onclick="onCopy()" id="copy">&#xE14D;</i>
+                  <i class='material-icons' title='Cut'  onclick="onCut()" id="cut">&#xE14E;</i>
+                  <i class='material-icons' title='Delete' onclick="deleteAny()" id="delete">&#xE16C;</i>
+
+                  <button id='createFile' type='button' class='btn btn-primary' data-toggle='modal' data-target='.newFile'><i class='material-icons' title='Create File'>add</i></button>
+
+                  <button id='createFolder' type='button' class='btn btn-primary' data-toggle='modal' data-target='.newFolder'> <i class='material-icons' title='Create Folder'>add_box</i></button>
+
+
+                  <span class='taille'></span>
+                  </div>
+
+                </div>
+                <div id='content' class='view-icons' onclick='selection("content")'>
+
+                </div>
+              </div>
+              <span class='taille'></span>
+            </div>
+		</div>
+
+	</div>
+
+
+
+
+{% load static %}
+     <script type="text/javascript" src="{% static 'home/assets/js/jquery-3.2.1.js' %}"></script>
+     <script type="text/javascript" src="{% static 'home/assets/js/bootstrap.min.js' %}"></script>
+     <script type="text/javascript" src="{% static 'home/assets/js/script.js' %}"></script>
+     <script type="text/javascript" src="{% static 'home/assets/js/fileSystem.js' %}"></script>
+   <script type="text/javascript" src="{% static 'home/assets/js/des.js' %}"></script>
+     <script type="text/javascript" src="{% static 'home/assets/js/calc.js' %}"></script>
+</body>
+</html>
+<script>
+  jQuery(function($, undefined) {
+    $('#term_demo').terminal(function(command) {
+        if (command !== '') {
+            try {
+                var result = window.eval(command);
+                if (result !== undefined) {
+                    this.echo(new String(result));
+                }
+            } catch(e) {
+                this.error(new String(e));
+            }
+        } else {
+           this.echo('');
+        }
+    }, {
+        greetings: 'Javascript Interpreter',
+        name: 'js_demo',
+        height: 200,
+        prompt: 'js> '
+    });
+});
+</script>

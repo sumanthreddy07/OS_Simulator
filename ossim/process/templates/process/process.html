@@ -1,0 +1,179 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title>
+    Gantt Chart - GUI
+  </title>
+  <script type='text/javascript' src='{% static 'js/input.js' %}'></script>
+  <script type='text/javascript' src='{% static 'js/display.js' %}'></script>
+  <link rel="stylesheet" href='{% static 'css/demo.css' %}'>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+
+<body style="background-image: url('https://i.pinimg.com/originals/9d/4d/07/9d4d07ca7d591bb3cd3d9f4df2624bbf.jpg">
+  <div ">
+      <div ><h1 style="text-alig
+        var text = JSON.strn:center;color: #33C71C;text-align: center;text-shadow: 1px 1px black;">
+        <b>Process Scheduling</b>
+      </h1></div>
+       <div class="container" style="color:black">
+
+    <div class="col-lg-6" style="">
+
+
+
+        <div class="container" style="color: white">
+          <div id="output" style="color: white">
+          </div>
+          <br>
+          <div class="card" style="height:50px;">
+              <div style="width:250px;float:left;text-align:left;color:white">
+                Enter arrival time:
+              <input style="width:200px;" id="newarrivaltime" class="form-control" type="number" min="0" value=""></input>
+              </div>
+              <div style="width:300px;float:left;text-align:left;color:white">
+                Enter burst time:
+                <input style="width:200px;float:left;" id="newbursttime" class="form-control" type="number" min="0" value=""></input>
+              </div>
+              <div style="width:300px;float:left;text-align:left;color:white">
+                select algorithm:
+
+  <br>
+      <select class="form-control" id="sel1" style="width:400px;color:white;background-color: #6CC3EF">
+        <option>First come first serve(FCFS)</option>
+        <option>Shortest job first(SJF)</option>
+        <option>Round-Robin(RR)</option>
+        <option>Shortest run time first(SRTF)</option>
+
+      </select>
+    </div>
+            <div class="row" style="float: right;margin-right: 20px">
+              <button class="btn btn-success" onclick="addToList()" style="float:left;margin-top:20px;margin-left:10px;">Add</button>
+            </div>
+
+          </div>
+            <div class="row" style="float: right;margin-right: 20px">
+            <div class="" id ="tq" style="height:20px;">
+
+        </div>
+            </div>
+
+        </div>
+        <br><br>
+
+        <div class="" style="height:20px;">
+            <button style="float:right;background-color:#99004D;color:white;" id="sender" class="btn btn-primary"><b>Send data</b></button>
+        </div>
+
+
+
+    </div>
+    <div class="col-lg-6"></div>
+
+  </div>
+  <div class="panel-body">
+
+    <div id="output">
+    </div>
+
+  </div>
+  <div>
+   <div class="container" style="background-color: white;opacity:0.9;margin-bottom: 20px">
+    <div class="col-lg-6">
+      <div class="" style="padding:0px;background-color: gray">
+        <h3><b>Queue Status</b></h3>
+      </div>
+      <div class="" id="comments" style="padding:10px;color:black;text-align:left;border: 2px solid black">
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div class="">
+        <div class="" style="padding:0px;background-color: gray" >
+          <h3><b>Table</b></h3>
+        </div>
+        <div class="panel-content">
+          <table id="ptab" class="table table-bordered">
+            <thead>
+              <tr id="thead">
+                <th>PNO.</th>
+
+                <th>Arrival time</th>
+                <th>Burst time</th>
+                <th>Completion time</th>
+                <th>Waiting time</th>
+                <th>Turn-around time</th>
+              </tr>
+              <tbody id="ptable">
+
+              </tbody>
+            </thead>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+        <div class="row" >
+      <h3>
+      Gantt chart
+    </h3>
+
+    <div id="gantth" style="background-color: white"> </div>
+    <br><br>
+    <div id="outer-div" style="background-color: white">
+  </div>
+    <br><br>
+            </div>
+  </div>
+
+</body>
+</html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+  $('#sel1').change(function(){
+    if($('#sel1').val() === "Round-Robin(RR)")
+      $('#tq').append('Time quantum: <input style="width:200px;" id="mytq" class="form-control" type="text" value=""></input>');
+    else $('#tq').empty();
+  });
+    $('#sender').click(function(){
+    var mytq = JSON.stringify(2);
+    if($('#sel1').val() === "Round-Robin(RR)"){
+      mytq = JSON.stringify(parseInt($('#mytq').val()));
+    }
+    var text = JSON.stringify(stuff);
+    var alg = JSON.stringify($("#sel1").val().split("(")[1].split(")")[0])
+    //console.log(text);
+    $.post('/process/gateway/',{value:text, algo:alg, tq:mytq}, function(result){
+      sequence = result["gantt"];
+      a = result["table"]
+      avgwt =0;
+      avgtat =0;
+      for(i=0;i<a.length;++i){
+        avgwt += a[i].wt;
+        avgtat += a[i].tat;
+      }
+
+      total = sequence.length;
+      pixel = 0;
+      i = 0;
+      $('#outer-div,#comments,#ptable,#gantth').empty();
+      // $('#thead').append('<th>PNO.</th> <th>Arrival time</th>  <th>Burst time</th>  <th>Completion time</th>  <th>Waiting time</th>  <th>Turn-around time</th>');
+      totalTime = sequence[total-1].stop;
+      pixel = parseInt(800/totalTime);
+      containerWidth = pixel*totalTime + 2;
+      $('#outer-div').css('width',containerWidth+'px');
+      displayBlock(i);
+    });
+    });
+
+
+</script>

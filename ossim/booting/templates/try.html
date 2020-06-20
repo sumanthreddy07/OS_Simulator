@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+body {
+    background-color: black;
+}
+h1 {
+    color: white;
+    font-family: Geneva;
+}
+p {
+    background-color: rgb(255,0,0);
+}
+
+div {
+    height: 200px;
+    width: 400px;
+    background: black;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -200px;
+}
+</style>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript"> 
+      $(document).ready( function() {
+        $('#deletesuccess').delay(1000).fadeOut();
+      });
+    </script>
+</head>
+<body onLoad="loaded()">
+	<div>
+<h1 align = "center" id=deletesuccess>Goodbye!</h1>
+</div>
+
+</body>
+</html>

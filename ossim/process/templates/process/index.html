@@ -1,0 +1,143 @@
+
+<head>
+    
+    <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+   <style>
+   h1{color:rgb(245, 240, 240);}
+   .lichoice{
+       margin: 20px;
+       width:300px;
+        outline: 2px solid grey;
+        box-shadow: 5px 5px white;
+        color: white;
+   }
+    .wikichoice{
+       margin: 20px;
+      width:300px;
+        outline: 2px solid grey;
+        box-shadow: 5px 5px grey;
+        color: white;
+   }
+   body{
+       background-image: url("https://ak.picdn.net/shutterstock/videos/32448301/thumb/1.jpg");
+   }
+   
+   
+   
+   
+   
+   
+.mainheader nav ul{
+   margin: 0 auto;
+   display: inline-block;
+   width: 100%;
+   text-align: center;
+   
+}
+
+.mainheader nav ul li{
+   float:left;
+   display: inline;
+   
+   color:white;
+   height: 50px;
+   margin: 
+   padding: -5 -5px
+   
+}
+
+.mainheader nav a:link {
+
+   display: inline-block;
+   padding: 30px 40px;
+   height: 10px;
+   text-align: center;
+}
+
+.content{
+   width: 60%;
+   margin: 0 auto;
+}
+   
+   
+
+.center {
+ margin: 0;
+ position: absolute;
+ top: 50%;
+ left: 50%;
+ -ms-transform: translate(-50%, -50%);
+ transform: translate(-50%, -50%);
+}
+   
+   
+   
+   
+</style>
+</head>
+{% block title %} <title> Process Scheduling </title> {% endblock %}
+
+
+{% block links %}
+{% load static %}
+<link href="{%static 'filesystem/styles.css' %}" rel="stylesheet" type="text/css" />
+{% endblock %}
+
+{% block content %}
+<nav role="navigation" class="navbar navbar-default">
+   <div id="navbarCollapse" class="collapse navbar-collapse">
+       <ul class="nav navbar-nav">
+           <li><a href="/">Home</a></li>
+           <li class="active"><a href="/process/">Process Scheduling</a></li>
+           <li><a href="/memory/page/">Page Replacement</a></li>
+           <li><a href="/disk/">Disk Scheduling</a></li>
+           <li><a href="/synchro/semaphores/">Semaphores</a></li>
+           <li><a href="/synchro/socket/">Sockets</a></li>
+           <li><a href="/filesystem/">File Structure</a></li>
+           <li><a href="/mat/">Memory Allocation</a></li>
+           <li><a href="/synchro/deadlocks/">Banker's Algorithm</a></li>
+       </ul>
+   </div>
+</nav> -->
+
+
+<center><div class='just'>
+<h1 class="hed">Process Scheduling</h1>
+<header class="mainheader">
+       <div id="choice">
+
+       <nav><ul id="ulchoice">
+           <a href="/process/demo/1/"><li class="lichoice" style="font-size: 24px;">SJF, FCFS, RR, SRTF Demo</li></a>
+           <a href="/process/demo/2/"><li class="lichoice"style="font-size: 24px;">Priority Scheduling</li></a>
+           <a href="/process/demo/3/"><li class="lichoice"style="font-size: 24px;width: 400px">Multi Level Queue Scheduling</li></a>
+           
+       </nav></ul>
+</div>
+   </header>
+
+</div></center>
+
+
+<div class="container">
+ <div class="center">
+ <a href="/login/desktop">
+   <button  type="button" class="btn btn-primary"  style="background-color: rgb(83, 7, 7);">Go to Desktop</button>
+ </div>
+</div>
+
+
+{% endblock %}
+
+{% block style %}
+
+
+{% endblock %}
+
+
+
+

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+{% load static %}
+<head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="{% static 'css/prodcon.css' %}" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css">
+</head>
+
+
+
+<body>
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <div class="container-fluid">
+
+    <center><h1> Producer-Consumer Problem</h1></center>
+
+    <button type = "button", id ="key1" disabled> Full Slot  </button>
+    <button type = "button", id ="key2" disabled> Empty Slot  </button>
+    <button class="btn btn-warning" id ="buffer-size" type ="button">Size of Buffer = 7</button>
+    <button class="btn btn-warning" id ="count" type ="button" >Counter = 0</button>
+
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <button type = "button", id ="one", name = "one"> </button>
+    <button type = "button", id ="two", name = "two"> </button>
+    <button type = "button", id ="three", name = "three"> </button>
+    <button type = "button", id ="four", name = "four"> </button>
+    <button type = "button", id ="five", name = "five"> </button>
+    <button type = "button", id ="six", name = "six"> </button>
+    <button type = "button", id ="seven", name = "seven"> </button>
+
+    <!--button type ="button", onclick ="initiate()">Next!</button-->
+
+    <button class="btn btn-primary" id ="prod", type ="button", onclick ="produce()">Click to Produce</button>
+    <button class="btn btn-primary" id ="con", type ="button", onclick ="consume()">Click to Consume</button>
+
+
+
+    <div>
+      <br>
+      <br>
+      <br>
+      <form>
+
+      </form>
+    </div>
+
+    <script type = "text/javascript">
+      var queue = [0,0,0,0,0,0,0]; var num=0;
+      var rear =-1; var front =-1;
+
+      function counter()
+      {
+        var counter = rear-front +1;
+        console.log(rear)
+        if(rear == -1 )
+        {
+          var change = document.getElementById("count");
+          change.innerHTML ="Counter = 0"
+        }
+        else if(counter==1)
+        {
+          var change = document.getElementById("count");
+          change.innerHTML ="Counter = 1"
+        }
+        if(counter==2)
+        {
+          var change = document.getElementById("count");
+          change.innerHTML ="Counter = 2"
+        }
+        if(counter==3)
+        {
+          var change = document.getElementById("count");
+          change.innerHTML ="Counter = 3"
+        }
+        if(counter==4)
+        {
+          var change = document.getElementById("count");
+          change.innerHTML ="Counter = 4"
+        }
+        if(counter==5)
+        {
+          var change = document.getElementById("count");
+          change.innerHTML ="Counter = 5"
+        }
+        if(counter==6)
+        {
+          var change = document.getElementById("count");
+          change.innerHTML ="Counter = 6"
+        }
+        if(counter==7)
+        {
+          var change = document.getElementById("count");
+          change.innerHTML ="Counter = 7"
+        }
+
+      }
+
+      function check()
+      {
+        if(num>0)
+        {
+          document.getElementById("con").disabled = false;
+        }
+        if(num<6)
+        {
+          document.getElementById("prod").disabled = false;
+        }
+      }
+
+      function color()
+      {
+        if(queue[0]==1)
+        {
+          document.getElementById("one").style.backgroundColor = '#82589F';
+        }
+        if(queue[1]==1)
+        {
+          document.getElementById("two").style.backgroundColor = '#82589F';
+        }
+        if(queue[2]==1)
+        {
+          document.getElementById("three").style.backgroundColor = '#82589F';
+        }
+        if(queue[3]==1)
+        {
+          document.getElementById("four").style.backgroundColor = '#82589F';
+        }
+        if(queue[4]==1)
+        {
+          document.getElementById("five").style.backgroundColor = '#82589F';
+        }
+        if(queue[5]==1)
+        {
+          document.getElementById("six").style.backgroundColor = '#82589F';
+        }
+        if(queue[6]==1)
+        {
+          document.getElementById("seven").style.backgroundColor = '#82589F';
+        }
+
+        if(queue[0]==0)
+        {
+          document.getElementById("one").style.backgroundColor = '#FFFFFF';
+        }
+        if(queue[1]==0)
+        {
+          document.getElementById("two").style.backgroundColor = '#FFFFFF';
+        }
+        if(queue[2]==0)
+        {
+          document.getElementById("three").style.backgroundColor = '#FFFFFF';
+        }
+        if(queue[3]==0)
+        {
+          document.getElementById("four").style.backgroundColor = '#FFFFFF';
+        }
+        if(queue[4]==0)
+        {
+          document.getElementById("five").style.backgroundColor = '#FFFFFF';
+        }
+        if(queue[5]==0)
+        {
+          document.getElementById("six").style.backgroundColor = '#FFFFFF';
+        }
+        if(queue[6]==0)
+        {
+          document.getElementById("seven").style.backgroundColor = '#FFFFFF';
+        }
+        check();
+      }
+
+      function produce()
+      {
+
+          if(num==7)
+          {
+            document.getElementById("prod").disabled = true;
+          }
+          else if(front == -1 && rear ==-1)
+          {
+            num++;
+            front =0;
+            rear =0;
+            queue[rear] =1;
+          }
+          else
+          {
+              num++;
+              rear = (rear+1)%7;
+              queue[rear]=1;
+          }
+
+        color();
+        counter();
+      }
+
+      function consume()
+      {
+
+
+        if(num==0)
+        {
+          document.getElementById("con").disabled = true;
+        }
+        else if(front==rear)
+        {
+          num--;
+          queue[front] =0;
+          front =-1;
+          rear =-1;
+        }
+        else
+        {
+          num--;
+          queue[front]=0;
+          front = (front+1)%7;
+        }
+        color();
+        counter();
+      }
+    </script>
+  </div>
+</body>
